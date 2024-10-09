@@ -12,9 +12,8 @@ const Home: React.FC = () => {
         <Sidebar />
         <div className="flex-1 p-4">
           <Header />
-          <h2 className="text-2xl font-bold mt-4">Classroom</h2>
-          <Tags />
-          <div className="grid grid-cols-3 gap-4 mt-4">
+          <Tags/>
+          <div className="grid grid-cols-3 gap-4 mt-8">
             <CourseCard title="Introduction to DeFi" level="Beginner" />
             <CourseCard title="Advanced Course" level="Advanced" />
             <CourseCard title="Course title" level="Beginner" />

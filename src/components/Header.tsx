@@ -1,10 +1,12 @@
+import Image from 'next/image';
 import React from 'react';
-import { FaWallet } from 'react-icons/fa';
+import wallet from '../assets/icons/wallet.svg';
+
 
 const Header: React.FC = () => {
   return (
     <header className="flex justify-between items-center p-4 text-white">
-      <h1 className="text-xl font-bold">DeChange</h1>
+      <h2 className="text-2xl font-bold -ml-4">Classroom</h2>
       <div className="flex-1 flex justify-center">
         <input
           type="text"
@@ -13,7 +15,7 @@ const Header: React.FC = () => {
         />
       </div>
       <button className="flex items-center bg-purple-600 px-4 py-2 rounded">
-        <FaWallet className="mr-2" />
+        <Image src={wallet} alt="Wallet" width={18} height={18} className="mr-2" />
         Connect Wallet
       </button>
     </header>
