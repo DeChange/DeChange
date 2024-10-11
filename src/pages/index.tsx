@@ -5,13 +5,13 @@ import CourseCard from '../components/CourseCard';
 import Footer from '../components/Footer';
 import Tags from '../components/Tags';
 import Image from 'next/image';
-
 import shadow from '../assets/images/bg-shadow.svg'; 
 
 const Home: React.FC = () => {
   return (
     <div className="flex flex-col min-h-screen relative">
-      <div className="flex flex-1">
+      {/* Main content for desktop */}
+      <div className="hidden md:flex flex-1">
         <div className="fixed h-full mr-4">
           <Sidebar />
         </div>
@@ -37,10 +37,18 @@ const Home: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="absolute inset-x-0 top-0 h-[100vh] translate-y-[350px] z-0 overflow-hidden">
+
+      {/* Message for mobile view */}
+      <div className="flex md:hidden justify-center items-center absolute inset-0 bg-gray-800 bg-opacity-75 z-20">
+        <span className="text-white text-2xl font-bold">Only available on desktop</span>
+      </div>
+
+      <div className="absolute inset-x-0 top-0 h-[100vh] translate-y-[350px] z-0 overflow-hidden md:block">
         <Image src={shadow} alt="bg-shadow" layout="fill" objectFit="cover" />
       </div>
-      <Footer />
+      <div className="hidden md:block">
+        <Footer />
+      </div>
     </div>
   );
 };
