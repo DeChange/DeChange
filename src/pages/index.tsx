@@ -18,10 +18,10 @@ const Home: React.FC = () => {
           <Header />
           <Tags />
           <div className="grid grid-cols-4 gap-2 mt-8">
-            <CourseCard title="Introduction to DeFi" level="Beginner" />
-            <CourseCard title="Advanced Course" level="Advanced" />
-            <CourseCard title="Course title" level="Beginner" />
-            <CourseCard title="Course title" level="Advanced" />
+            <CourseCard title="Introduction to DeFi" level="Beginner" slug="introduction-to-defi" />
+            <CourseCard title="Advanced Course" level="Advanced" slug="advanced-course" />
+            <CourseCard title="Course title" level="Beginner" slug="course-title-1" />
+            <CourseCard title="Course title" level="Advanced" slug="course-title-2" />
           </div>
           <div className="h-7 justify-start items-center mt-9 gap-2 inline-flex">
             <div className="text-white text-2xl font-semibold">Top Picks</div>
@@ -29,10 +29,10 @@ const Home: React.FC = () => {
             <div className="text-gray-600 text-base font-normal">Courses taken by new users</div>
           </div>
           <div className="grid grid-cols-4 gap-2 mt-4">
-            <CourseCard title="Course title" level="Beginner" />
-            <CourseCard title="Introduction to DeFi" level="Beginner" />
-            <CourseCard title="Course title" level="Advanced" />
-            <CourseCard title="Course title" level="Beginner" />
+            <CourseCard title="Course title" level="Beginner" slug="course-title-3" />
+            <CourseCard title="Introduction to DeFi" level="Beginner" slug="introduction-to-defi" />
+            <CourseCard title="Course title" level="Advanced" slug="course-title-4" />
+            <CourseCard title="Course title" level="Beginner" slug="course-title-5" />
           </div>
         </div>
       </div>
