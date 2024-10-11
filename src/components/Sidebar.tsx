@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import logo from '../assets/images/logo.svg';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import book from '../assets/icons/book.svg';
 import users from '../assets/icons/users.svg';
@@ -9,11 +10,11 @@ import coin from '../assets/icons/coin.svg';
 import user from '../assets/icons/user.svg';
 
 const sidebarItems = [
-  { icon: book, label: 'Classroom' },
-  { icon: users, label: 'Community' },
-  { icon: photo, label: 'Marketplace' },
-  { icon: coin, label: 'Reward' },
-  { icon: user, label: 'Profile' },
+  { icon: book, label: 'Classroom', path: '/' },
+  { icon: users, label: 'Community', path: '/community' },
+  { icon: photo, label: 'Marketplace', path: '/marketplace' },
+  { icon: coin, label: 'Reward', path: '/reward' },
+  { icon: user, label: 'Profile', path: '/profile' },
 ];
 
 const Sidebar: React.FC = () => {
@@ -39,14 +40,18 @@ const Sidebar: React.FC = () => {
             }`}
             onClick={() => setActiveItem(index)}
           >
-            <Image
-              src={item.icon}
-              alt={item.label}
-              width={28}
-              height={28}
-              className={`mr-2 ${activeItem === index ? 'text-purple-400' : 'text-gray-600'}`}
-            />
-            <span className="font-medium text-lg">{item.label}</span>
+            <Link href={item.path} className="flex items-center w-full">
+              
+                <Image
+                  src={item.icon}
+                  alt={item.label}
+                  width={28}
+                  height={28}
+                  className={`mr-2 ${activeItem === index ? 'text-purple-400' : 'text-gray-600'}`}
+                />
+                <span className="font-medium text-lg">{item.label}</span>
+             
+            </Link>
           </li>
         ))}
       </ul>
