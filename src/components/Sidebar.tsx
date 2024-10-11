@@ -18,7 +18,7 @@ const sidebarItems = [
 
 const Sidebar: React.FC = () => {
   return (
-    <nav className="bg-gray-900 text-white w-64 h-96 rounded-2xl shadow-inner backdrop-blur-3xl m-6">
+    <nav className="bg-gray-900 border-[#7B51EA2E] text-white w-64 h-96 rounded-2xl shadow-inner backdrop-blur-3xl m-6">
       <header className="pl-4 pr-20 py-3 border-b border-[#7b50ea]/25 flex items-center">
         <div className="flex items-center gap-3.5">
           <Image src={logo} alt="DeChange Logo" width={44} height={44} />

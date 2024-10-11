@@ -14,6 +14,7 @@ const config: Config = {
         },
         gray: {
           600: "#A8A7A8",
+          700: "#7E7E7E",
         },
         background: "var(--background)",
         foreground: "var(--foreground)",
