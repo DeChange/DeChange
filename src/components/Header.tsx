@@ -10,7 +10,7 @@ const Header: React.FC = () => {
         <input
           type="text"
           placeholder="Search Topics, project or Narrative"
-          className="w-[407px] p-2 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-600"
+          className="w-96 h-11 px-5 py-3 bg-white/5 rounded-3xl justify-start items-center gap-2 inline-flex focus:outline-none focus:ring-2 focus:ring-purple-600"
         />
       </div>
       <button className="flex items-center bg-primary-400 px-4 py-2 rounded">

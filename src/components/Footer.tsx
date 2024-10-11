@@ -1,22 +1,24 @@
+import Image from 'next/image';
 import React from 'react';
-import { FaYoutube, FaTwitter, FaDiscord, FaLinkedin } from 'react-icons/fa';
+import { FaYoutube, FaDiscord, FaLinkedin } from 'react-icons/fa';
+import x from '../assets/icons/x.svg'; 
 
 const Footer: React.FC = () => {
   return (
-    <footer className="text-white p-4 flex justify-between items-center">
-      <p className="text-center">© 2024 DeChange, Inc. All rights reserved.</p>
-      <div className="flex space-x-4">
-        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-          <FaYoutube className="text-xl" />
+    <footer className="relative text-gray-700 p-4 pb-8 flex justify-between items-center z-10">
+      <p className="text-center font-medium">© 2024 DeChange, Inc. All rights reserved.</p>
+      <div className="flex gap-8">
+        <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">
+          <FaYoutube className="text-gray-700 text-2xl" />
         </a>
         <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-          <FaTwitter className="text-xl" />
+          <Image src={x} alt="X" className="text-gray-700 text-2xl" />
         </a>
         <a href="https://discord.com" target="_blank" rel="noopener noreferrer">
-          <FaDiscord className="text-xl" />
+          <FaDiscord className="text-gray-700 text-2xl" />
         </a>
-        <a href="https://github.com" target="_blank" rel="noopener noreferrer">
-          <FaLinkedin className="text-xl" />
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+          <FaLinkedin className="text-gray-700 text-2xl" />
         </a>
       </div>
     </footer>
