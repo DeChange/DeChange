@@ -51,7 +51,6 @@ const config: Config = {
           600: "#a8a7a8",
           700: "#7e7e7e",
           800: "#545454",
-          900: "#2a2a2a",
         },
         error: {
           100: "#fcdad7",
