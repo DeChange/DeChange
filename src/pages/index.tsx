@@ -5,6 +5,7 @@ import CourseCard from '../components/CourseCard';
 import Footer from '../components/Footer';
 import Tags from '../components/Tags';
 import Image from 'next/image';
+
 import shadow from '../assets/images/bg-shadow.svg'; 
 
 const Home: React.FC = () => {
