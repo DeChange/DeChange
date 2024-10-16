@@ -9,6 +9,10 @@ interface IBaseNames {
     function validateBaseNameOwnership(address user, string memory basename) external view returns (bool);
 }
 
+interface ISoulBoundToken {
+    function mintSBT(address to) external;
+}
+
 contract DeChange {
     struct User {
         string username;
@@ -32,6 +36,7 @@ contract DeChange {
     address public owner;
     ISmartWallet public smartWallet;
     IBaseNames public baseNames;
+    ISoulBoundToken public soulBoundToken; // SBT contract integration
 
     mapping(address => User) public users;
     mapping(uint256 => Course) public courses;
@@ -43,13 +48,14 @@ contract DeChange {
 
     modifier onlyOwner() {
         require(msg.sender == owner, "Not the owner");
-        _;
+        _; 
     }
 
-    constructor(address _smartWallet, address _baseNames) {
+    constructor(address _smartWallet, address _baseNames, address _sbtAddress) {
         owner = msg.sender;
         smartWallet = ISmartWallet(_smartWallet);
         baseNames = IBaseNames(_baseNames);
+        soulBoundToken = ISoulBoundToken(_sbtAddress); // Inject the SBT contract
     }
 
     // Register user in the system
@@ -87,7 +93,7 @@ contract DeChange {
         });
     }
 
-    // Complete a quest and award XP
+    // Complete a quest and award XP + mint an SBT
     function completeQuest(uint256 questId) public {
         require(userQuests[msg.sender][questId].questId != 0, "Quest does not exist");
         require(!userQuests[msg.sender][questId].completed, "Quest already completed");
@@ -96,42 +102,9 @@ contract DeChange {
         uint256 xpReward = userQuests[msg.sender][questId].xpReward;
         users[msg.sender].performance += xpReward; // Add XP to user's performance
 
+        // Mint an SBT upon quest completion
+        soulBoundToken.mintSBT(msg.sender);
+
         emit QuestCompleted(msg.sender, questId, xpReward);
-    }
-
-    // Verify basename ownership before completing a quest
-    function completeQuestWithBasename(uint256 questId, string memory expectedBasename) external {
-        require(baseNames.validateBaseNameOwnership(msg.sender, expectedBasename), "Invalid Basename");
-        completeQuest(questId); // Call the base quest completion function
-    }
-
-    // Use Smart Wallet to perform transactions (e.g., Uniswap token swap) and complete the Uniswap quest
-    function completeUniswapQuest(address target, bytes calldata data) external {
-        smartWallet.performTransaction(target, data); // Execute the Uniswap transaction via Smart Wallet
-        completeQuest(2); // Mark the Uniswap quest as complete
-    }
-
-   // Function to call when the user claims faucet directly from frontend
-    function claimFaucet() external {
-    completeQuest(1); // Complete the faucet quest for the user
-    }
-
-
-    // Admin function to add courses for users
-    function addCourse(uint256 courseId, string memory title, uint256 xpReward) external onlyOwner {
-        courses[courseId] = Course({
-            courseId: courseId,
-            title: title,
-            xpReward: xpReward
-        });
-    }
-
-    // Enroll user in a course
-    function enrollInCourse(uint256 courseId) external {
-        require(users[msg.sender].registered, "User not registered");
-        require(courses[courseId].courseId != 0, "Course does not exist");
-
-        users[msg.sender].performance += courses[courseId].xpReward; // Add XP for enrolling in the course
-        emit CourseEnrolled(msg.sender, courseId);
     }
 }
