@@ -3,6 +3,7 @@ import Layout from '../../components/Layout'
 import CourseOutlinePanel from './components/CourseOutlinePanel'
 import Popup from './components/Popup'
 import Image from 'next/image'
+import Confetti from 'react-confetti'
 
 import preview from '../../assets/images/preview-image.png'
 import demoUser1 from '../../assets/images/demo-user1.svg'
@@ -29,34 +30,43 @@ const IntroductionToDeFi: React.FC = () => {
   )
   const [isClaimRewardEnabled, setIsClaimRewardEnabled] = useState(false)
   const [showPopup, setShowPopup] = useState(false)
-  const [allAnswersCorrect, setAllAnswersCorrect] = useState(false) // Track if all answers are correct
+  const [allAnswersCorrect, setAllAnswersCorrect] = useState(false)
+  const [showConfetti, setShowConfetti] = useState(false)
+  const [rewardsClaimed, setRewardsClaimed] = useState(false)
 
   const sections = [
     <WhatIsDeFi key="WhatIsDeFi" />,
     <HistoryOfDeFi key="HistoryOfDeFi" />,
     <DefiUsecase key="DefiUsecase" />,
     <Practice key="Practice" />,
-    <Quiz key="Quiz" onAnswersChecked={setAllAnswersCorrect} />, // Pass the function to check answers
+    <Quiz key="Quiz" onAnswersChecked={setAllAnswersCorrect} />,
   ]
 
   const handleNext = () => {
     if (currentSection < completedSections.length - 1) {
       setCompletedSections((prev) => {
         const newCompleted = [...prev]
-        newCompleted[currentSection] = true // Mark current section as completed
+        newCompleted[currentSection] = true
         return newCompleted
       })
       setCurrentSection((prev) => prev + 1)
     } else {
       // Last section (Quiz) submission logic
+      if (allAnswersCorrect) {
+        setShowConfetti(true)
+        setTimeout(() => {
+          setShowConfetti(false)
+        }, 7000)
+      }
+      // Last section (Quiz) submission logic
       console.log('Submitting the quiz...') // Temporary submission logic
       setCompletedSections((prev) => {
         const newCompleted = [...prev]
-        newCompleted[currentSection] = true // Mark the quiz section as completed
+        newCompleted[currentSection] = true
         return newCompleted
       })
-      setIsClaimRewardEnabled(true) // Enable claim reward button
-      setShowPopup(true) // Show the popup
+      setIsClaimRewardEnabled(true)
+      setShowPopup(true)
     }
   }
 
@@ -67,8 +77,13 @@ const IntroductionToDeFi: React.FC = () => {
   }
 
   const handleClaimReward = () => {
-    setShowPopup(true) // Show the popup when claiming reward
+    setShowConfetti(true)
+    setShowPopup(true)
+    setRewardsClaimed(true)
     // Claim reward logic goes here
+    setTimeout(() => {
+      setShowConfetti(false) // Hide confetti after a short duration
+    }, 7000)
   }
 
   const closePopup = () => {
@@ -77,6 +92,7 @@ const IntroductionToDeFi: React.FC = () => {
 
   return (
     <Layout>
+      {showConfetti && <Confetti />}
       <div className="flex justify-between gap-2">
         <div className="flex flex-col gap-6 max-w-full overflow-hidden">
           <div className="w-full h-[223px] mt-6 p-4 bg-white/5 rounded-3xl shadow-inner border border-[#7B51EA2E] backdrop-blur-lg flex">
@@ -227,9 +243,13 @@ const IntroductionToDeFi: React.FC = () => {
                 >
                   <button
                     onClick={handleNext}
-                    disabled={currentSection === 4 && !allAnswersCorrect}
+                    disabled={
+                      rewardsClaimed ||
+                      (currentSection === 4 && !allAnswersCorrect)
+                    }
                     className={`flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-2 px-2 ${
-                      currentSection === 4 && !allAnswersCorrect
+                      (currentSection === 4 && !allAnswersCorrect) ||
+                      rewardsClaimed
                         ? 'cursor-not-allowed'
                         : ''
                     }`}
@@ -268,6 +288,7 @@ const IntroductionToDeFi: React.FC = () => {
             currentSection={currentSection}
             isClaimRewardEnabled={isClaimRewardEnabled}
             onClaimReward={handleClaimReward}
+            rewardsClaimed={rewardsClaimed}
           />
           <div className="flex flex-col justify-start items-start w-[252px] h-[226px] relative overflow-hidden rounded-3xl bg-white/[0.02] backdrop-blur-xl">
             <div className="flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden gap-2 px-4 py-2.5 border-t-0 border-r-0 border-b border-l-0 border-[#7b51ea]/25">

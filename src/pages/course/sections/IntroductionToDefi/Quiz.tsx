@@ -104,7 +104,7 @@ const Quiz: React.FC<QuizProps> = ({ onAnswersChecked }) => {
               </div>
             </div>
             {activeAccordion === index && (
-              <div className="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 gap-4">
+              <div className="flex cursor-pointer flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 gap-4">
                 {item.options.map((option, optionIndex) => (
                   <div
                     key={optionIndex}
