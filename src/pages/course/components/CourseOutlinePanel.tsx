@@ -1,5 +1,4 @@
 import React from 'react'
-// import Layout from '../../components/Layout';
 import Image from 'next/image'
 
 import book from '../../../assets/icons/stud-book.svg'
@@ -12,7 +11,14 @@ import padlock from '../../../assets/icons/padlock.svg'
 const CourseOutlinePanel: React.FC<{
   completedSections: boolean[]
   currentSection: number
-}> = ({ completedSections, currentSection }) => {
+  isClaimRewardEnabled: boolean
+  onClaimReward: () => void
+}> = ({
+  completedSections,
+  currentSection,
+  isClaimRewardEnabled,
+  onClaimReward,
+}) => {
   const sections = [
     { title: 'What is DeFi?', icon: book, completed: completedSections[0] },
     {
@@ -69,9 +75,14 @@ const CourseOutlinePanel: React.FC<{
         ))}
       </div>
       <div className="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 overflow-hidden gap-2 px-3.5 py-4 border-t border-r-0 border-b-0 border-l-0 border-[#171a20]">
-        <div className="flex justify-center items-center self-stretch flex-grow-0 flex-shrink-0 h-11 overflow-hidden px-4 py-2 rounded-lg bg-[#7b51ea]/25">
+        <div
+          className={`flex justify-center items-center self-stretch flex-grow-0 flex-shrink-0 h-11 overflow-hidden px-4 py-2 rounded-lg ${
+            isClaimRewardEnabled ? 'bg-[#7b51ea] text-white' : 'bg-[#7b51ea]/25'
+          }`}
+          onClick={isClaimRewardEnabled ? onClaimReward : undefined} // Trigger the claim reward function
+        >
           <div className="flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-2 px-2">
-            <p className="flex-grow-0 flex-shrink-0 text-base font-medium text-left text-white/[0.48]">
+            <p className="flex-grow-0 flex-shrink-0 text-base font-medium text-left">
               Claim Rewards
             </p>
           </div>

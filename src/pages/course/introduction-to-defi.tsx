@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Layout from '../../components/Layout'
 import CourseOutlinePanel from './components/CourseOutlinePanel'
+import Popup from './components/Popup'
 import Image from 'next/image'
 
 import preview from '../../assets/images/preview-image.png'
@@ -27,6 +28,8 @@ const IntroductionToDeFi: React.FC = () => {
   const [completedSections, setCompletedSections] = useState<boolean[]>(
     Array(5).fill(false),
   )
+  const [isClaimRewardEnabled, setIsClaimRewardEnabled] = useState(false)
+  const [showPopup, setShowPopup] = useState(false)
 
   const sections = [
     <WhatIsDeFi key="WhatIsDeFi" />,
@@ -40,10 +43,20 @@ const IntroductionToDeFi: React.FC = () => {
     if (currentSection < completedSections.length - 1) {
       setCompletedSections((prev) => {
         const newCompleted = [...prev]
-        newCompleted[currentSection] = true
+        newCompleted[currentSection] = true // Mark current section as completed
         return newCompleted
       })
       setCurrentSection((prev) => prev + 1)
+    } else {
+      // Last section (Quiz) submission logic
+      console.log('Submitting the quiz...') // Temporary submission logic
+      setCompletedSections((prev) => {
+        const newCompleted = [...prev]
+        newCompleted[currentSection] = true // Mark the quiz section as completed
+        return newCompleted
+      })
+      setIsClaimRewardEnabled(true) // Enable claim reward button
+      setShowPopup(true) // Show the popup
     }
   }
 
@@ -51,6 +64,15 @@ const IntroductionToDeFi: React.FC = () => {
     if (currentSection > 0) {
       setCurrentSection((prev) => prev - 1)
     }
+  }
+
+  const handleClaimReward = () => {
+    setShowPopup(true) // Show the popup when claiming reward
+    // Claim reward logic goes here
+  }
+
+  const closePopup = () => {
+    setShowPopup(false)
   }
 
   return (
@@ -161,37 +183,42 @@ const IntroductionToDeFi: React.FC = () => {
                       'drop-shadow(0px 0px 0px rgba(123,81,234,0.19)) drop-shadow(0px 0px 0px rgba(123,81,234,0.25))',
                   }}
                 >
-                  <svg
-                    width={18}
-                    height={18}
-                    viewBox="0 0 18 18"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="flex-grow-0 flex-shrink-0 w-[18px] h-[18px] relative"
-                    preserveAspectRatio="none"
-                  >
-                    <path
-                      d="M11.25 13.5L6.75 9L11.25 4.5"
-                      stroke="white"
-                      strokeWidth={2}
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                  <button
-                    onClick={handlePrevious}
-                    disabled={currentSection === 0}
-                    className="flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-2 px-2"
-                  >
-                    <p className="flex-grow-0 flex-shrink-0 text-base font-medium text-left text-white">
-                      Previous
-                    </p>
-                  </button>
+                  {currentSection === 0 ? null : (
+                    <>
+                      <svg
+                        width={18}
+                        height={18}
+                        viewBox="0 0 18 18"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="flex-grow-0 flex-shrink-0 w-[18px] h-[18px] relative"
+                        preserveAspectRatio="none"
+                      >
+                        <path
+                          d="M11.25 13.5L6.75 9L11.25 4.5"
+                          stroke="white"
+                          strokeWidth={2}
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+
+                      <button
+                        onClick={handlePrevious}
+                        disabled={currentSection === 0}
+                        className="flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-2 px-2"
+                      >
+                        <p className="flex-grow-0 flex-shrink-0 text-base font-medium text-left text-white">
+                          Previous
+                        </p>
+                      </button>
+                    </>
+                  )}
                 </div>
               </div>
               <div className="flex flex-col justify-center items-end flex-grow gap-2">
                 <div
-                  className="flex justify-center items-center flex-grow-0 flex-shrink-0 h-11 relative overflow-hidden px-4 py-2 rounded-lg bg-[#7b51ea]"
+                  className="flex justify-center items-center flex-grow-0 bg-[#7b51ea] flex-shrink-0 h-11 relative overflow-hidden px-4 py-2 rounded-lg"
                   style={{
                     boxShadow:
                       '0px 0px 0px 0 rgba(123,81,234,0.19), 0px 0px 0px 0 rgba(123,81,234,0.25)',
@@ -199,11 +226,14 @@ const IntroductionToDeFi: React.FC = () => {
                 >
                   <button
                     onClick={handleNext}
-                    disabled={currentSection === completedSections.length - 1}
+                    // disabled={
+                    //   currentSection === completedSections.length - 1 &&
+                    //   !isClaimRewardEnabled
+                    // }
                     className="flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-2 px-2"
                   >
                     <p className="flex-grow-0 flex-shrink-0 text-base font-medium text-left text-white">
-                      Next
+                      {currentSection === 4 ? 'Submit' : 'Next'}
                     </p>
                   </button>
                   <svg
@@ -234,6 +264,8 @@ const IntroductionToDeFi: React.FC = () => {
           <CourseOutlinePanel
             completedSections={completedSections}
             currentSection={currentSection}
+            isClaimRewardEnabled={isClaimRewardEnabled}
+            onClaimReward={handleClaimReward}
           />
           <div className="flex flex-col justify-start items-start w-[252px] h-[226px] relative overflow-hidden rounded-3xl bg-white/[0.02] backdrop-blur-xl">
             <div className="flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden gap-2 px-4 py-2.5 border-t-0 border-r-0 border-b border-l-0 border-[#7b51ea]/25">
@@ -301,6 +333,16 @@ const IntroductionToDeFi: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Popup for Claim Reward */}
+      {showPopup && (
+        <Popup
+          title="Viola, Course completed."
+          message="Keep it up!!!"
+          subMessage="You earned more D-points"
+          onClose={closePopup}
+        />
+      )}
     </Layout>
   )
 }
