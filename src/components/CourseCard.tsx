@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 import preview from '../assets/images/preview-image.png';
 import usdt from '../assets/icons/usdt-badge.svg';
-import cert from '../assets/icons/cert-badge.svg';
+import role from '../assets/icons/role-badge.svg';
 import dechange from '../assets/icons/dechange-badge.svg';
 
 interface CourseCardProps {
@@ -42,7 +42,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ title, level, slug }) => {
               <div className="text-white text-xs font-normal">$100</div>
             </div>
             <div className="flex items-start gap-2">
-              <Image src={cert} alt="usdt" width={16} height={16} />
+              <Image src={role} alt="usdt" width={16} height={16} />
               <div className="text-white text-xs font-normal">Role</div>
             </div>
           </div>
