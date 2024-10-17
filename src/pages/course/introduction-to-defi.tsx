@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Layout from '../../components/Layout'
+import CourseOutlinePanel from './components/CourseOutlinePanel'
 import Image from 'next/image'
 
 import preview from '../../assets/images/preview-image.png'
@@ -13,16 +14,45 @@ import dechangeBadge from '../../assets/icons/dechange-badge.svg'
 import usdtBadge from '../../assets/icons/usdt-badge.svg'
 import roleBadge from '../../assets/icons/role-badge.svg'
 import certBadge from '../../assets/icons/cert-badge.svg'
-import book from '../../assets/icons/stud-book.svg'
-import monitor from '../../assets/icons/monitor.svg'
-import play from '../../assets/icons/play.svg'
-import question from '../../assets/icons/question-mark.svg'
-import check from '../../assets/icons/check.svg'
-import padlock from '../../assets/icons/padlock.svg'
-
 import defaultAvatar from '../../assets/images/default-avatar.svg'
 
+import WhatIsDeFi from './sections/IntroductionToDefi/WhatIsDefi'
+import HistoryOfDeFi from './sections/IntroductionToDefi/HistoryOfDefi'
+import DefiUsecase from './sections/IntroductionToDefi/DefiUsecase'
+import Practice from './sections/IntroductionToDefi/Practice'
+import Quiz from './sections/IntroductionToDefi/Quiz'
+
 const IntroductionToDeFi: React.FC = () => {
+  const [currentSection, setCurrentSection] = useState(0)
+  const [completedSections, setCompletedSections] = useState<boolean[]>(
+    Array(5).fill(false),
+  )
+
+  const sections = [
+    <WhatIsDeFi key="WhatIsDeFi" />,
+    <HistoryOfDeFi key="HistoryOfDeFi" />,
+    <DefiUsecase key="DefiUsecase" />,
+    <Practice key="Practice" />,
+    <Quiz key="Quiz" />,
+  ]
+
+  const handleNext = () => {
+    if (currentSection < completedSections.length - 1) {
+      setCompletedSections((prev) => {
+        const newCompleted = [...prev]
+        newCompleted[currentSection] = true
+        return newCompleted
+      })
+      setCurrentSection((prev) => prev + 1)
+    }
+  }
+
+  const handlePrevious = () => {
+    if (currentSection > 0) {
+      setCurrentSection((prev) => prev - 1)
+    }
+  }
+
   return (
     <Layout>
       <div className="flex justify-between gap-2">
@@ -35,7 +65,6 @@ const IntroductionToDeFi: React.FC = () => {
               height={191}
               className="rounded-[12px] h-full object-cover"
             />
-
             <div className="flex-grow h-full flex flex-col justify-between pl-4">
               <div className="text-white text-2xl font-medium font-['Figtree']">
                 Introduction to Defi
@@ -120,138 +149,34 @@ const IntroductionToDeFi: React.FC = () => {
             </div>
           </div>
 
-          <div className="mt-14 mb-28 w-full h-96 flex-col justify-start items-start gap-8 inline-flex">
-            <div className="self-stretch h-14 flex-col justify-start items-start gap-2 flex">
-              <div className="self-stretch text-white text-4xl font-semibold font-['Figtree']">
-                What is Defi
-              </div>
-              <div className="self-stretch justify-start items-center gap-4 inline-flex">
-                <div className="grow shrink basis-0 h-1.5 bg-[#7b50ea] rounded" />
-              </div>
-            </div>
-            <div className="self-stretch h-64 flex-col justify-start items-start gap-5 flex">
-              <div className="self-stretch text-white text-2xl font-medium font-['Figtree']">
-                Sub title
-              </div>
-              <div className="self-stretch text-white text-xl font-normal font-['Figtree']">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sit
-                amet odio massa. Maecenas et lorem et quam malesuada dignissim
-                nec eu est. Mauris pulvinar mollis mauris et posuere. Proin sed
-                hendrerit erat. Interdum et malesuada fames ac ante ipsum primis
-                in faucibus. Duis sapien odio, facilisis sed scelerisque eget,
-                viverra quis ligula.
-                <br />
-                <br />
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sit
-                amet odio massa. Maecenas et lorem et quam malesuada dignissim
-                nec eu est. Mauris pulvinar mollis mauris et posuere.{' '}
-              </div>
-            </div>
-            <div className="self-stretch py-4 justify-between items-start inline-flex">
-              <div className="grow shrink basis-0 flex-col justify-center items-end gap-2 inline-flex">
-                <div className="h-11 px-4 py-2 bg-[#7b50ea] rounded-lg shadow justify-center items-center inline-flex">
-                  <div className="px-2 justify-center items-center gap-2 flex">
-                    <div className="text-white text-base font-medium font-['Figtree']">
-                      Next
-                    </div>
-                  </div>
-                  <div className="w-4 h-4 py-1 justify-center items-center flex" />
-                </div>
-              </div>
+          {/* Section Content */}
+          <div className="mt-14 mb-28 w-full flex-col justify-start items-start gap-8 inline-flex">
+            {sections[currentSection]}
+            <div className="flex justify-between items-center mt-4">
+              <button
+                onClick={handlePrevious}
+                disabled={currentSection === 0}
+                className="bg-[#7b51ea] text-white px-4 py-2 rounded"
+              >
+                Previous
+              </button>
+              <button
+                onClick={handleNext}
+                disabled={currentSection === completedSections.length - 1}
+                className="bg-[#7b51ea] text-white px-4 py-2 rounded"
+              >
+                Next
+              </button>
             </div>
           </div>
         </div>
 
+        {/* Participants and Rank Section */}
         <div className="flex-grow h-full flex flex-col justify-between pl-4 gap-8">
-          <div className="flex flex-col mt-6 justify-start items-start w-[252px] h-[372px] relative overflow-hidden rounded-3xl bg-white/[0.02] backdrop-blur-xl">
-            <div className="flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden gap-2 px-4 py-2.5 border-t-0 border-r-0 border-b border-l-0 border-[#171a20]">
-              <p className="flex-grow w-[220px] text-xl font-semibold text-left text-white">
-                Course Outline
-              </p>
-            </div>
-            <div className="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 overflow-hidden gap-2 px-3.5 py-2 border-t-0 border-r-0 border-b border-l-0 border-[#171a20]">
-              <div className="flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 h-[39px] relative overflow-hidden gap-[11px] px-2 py-2.5">
-                <Image
-                  src={book}
-                  alt="User"
-                  className="flex-grow-0 flex-shrink-0"
-                />
-                <p className="flex-grow w-[152px] text-base text-left text-[#a8a7a8]">
-                  What is Defi?
-                </p>
-                <Image
-                  src={check}
-                  alt="User"
-                  className="flex-grow-0 flex-shrink-0"
-                />
-              </div>
-              <div className="flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 h-[39px] relative overflow-hidden gap-[11px] px-2 py-2.5 rounded-lg bg-[#7b51ea]/[0.18]">
-                <Image
-                  src={monitor}
-                  alt="User"
-                  className="flex-grow-0 flex-shrink-0"
-                />
-                <p className="flex-grow w-[179px] text-base font-semibold text-left text-white">
-                  History of Defi
-                </p>
-              </div>
-              <div className="flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 h-[39px] relative overflow-hidden gap-[11px] px-2 py-2.5">
-                <Image
-                  src={book}
-                  alt="User"
-                  className="flex-grow-0 flex-shrink-0"
-                />
-                <p className="flex-grow w-[152px] text-base text-left text-[#a8a7a8]">
-                  Defi Usecase
-                </p>
-                <Image
-                  src={padlock}
-                  alt="User"
-                  className="flex-grow-0 flex-shrink-0"
-                />
-              </div>
-              <div className="flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 h-[39px] relative overflow-hidden gap-[11px] px-2 py-2.5">
-                <Image
-                  src={play}
-                  alt="User"
-                  className="flex-grow-0 flex-shrink-0"
-                />
-                <p className="flex-grow w-[152px] text-base text-left text-[#a8a7a8]">
-                  Practice
-                </p>
-                <Image
-                  src={padlock}
-                  alt="User"
-                  className="flex-grow-0 flex-shrink-0"
-                />
-              </div>
-              <div className="flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 h-[39px] relative overflow-hidden gap-[11px] px-2 py-2.5">
-                <Image
-                  src={question}
-                  alt="User"
-                  className="flex-grow-0 flex-shrink-0"
-                />
-                <p className="flex-grow w-[152px] text-base text-left text-[#a8a7a8]">
-                  Quiz
-                </p>
-                <Image
-                  src={padlock}
-                  alt="User"
-                  className="flex-grow-0 flex-shrink-0"
-                />
-              </div>
-            </div>
-            <div className="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 overflow-hidden gap-2 px-3.5 py-4 border-t border-r-0 border-b-0 border-l-0 border-[#171a20]">
-              <div className="flex justify-center items-center self-stretch flex-grow-0 flex-shrink-0 h-11 overflow-hidden px-4 py-2 rounded-lg bg-[#7b51ea]/25">
-                <div className="flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-2 px-2">
-                  <p className="flex-grow-0 flex-shrink-0 text-base font-medium text-left text-white/[0.48]">
-                    Claim Rewards
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
+          <CourseOutlinePanel
+            completedSections={completedSections}
+            currentSection={currentSection}
+          />
           <div className="flex flex-col justify-start items-start w-[252px] h-[226px] relative overflow-hidden rounded-3xl bg-white/[0.02] backdrop-blur-xl">
             <div className="flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden gap-2 px-4 py-2.5 border-t-0 border-r-0 border-b border-l-0 border-[#7b51ea]/25">
               <p className="flex-grow w-[220px] text-base font-medium text-left text-white">
