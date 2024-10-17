@@ -1,11 +1,15 @@
 import Image from 'next/image'
-import React, { useState } from 'react'
+import React, { Dispatch, SetStateAction, useState } from 'react'
 
 import arrowDown from '../../../../assets/icons/arrow-down.svg'
 import arrowSide from '../../../../assets/icons/arrow-side.svg'
 import radioButton from '../../../../assets/icons/radio-button.svg'
 
-const Quiz: React.FC = () => {
+interface QuizProps {
+  onAnswersChecked: Dispatch<SetStateAction<boolean>>
+}
+
+const Quiz: React.FC<QuizProps> = ({ onAnswersChecked }) => {
   const [activeAccordion, setActiveAccordion] = useState<number | null>(0)
   const [selectedAnswers, setSelectedAnswers] = useState<number[]>([])
 
@@ -32,10 +36,23 @@ const Quiz: React.FC = () => {
     setActiveAccordion(activeAccordion === index ? null : index)
   }
 
+  const correctAnswers = [0, 0]
+
   const handleAnswerSelect = (questionIndex: number, answerIndex: number) => {
     const newSelectedAnswers = [...selectedAnswers]
     newSelectedAnswers[questionIndex] = answerIndex
     setSelectedAnswers(newSelectedAnswers)
+
+    const allCorrect = newSelectedAnswers.every(
+      (answer, index) => answer === correctAnswers[index],
+    )
+
+    // Check if onAnswersChecked is a function before calling it
+    if (typeof onAnswersChecked === 'function') {
+      onAnswersChecked(allCorrect) // Call the prop function with the result
+    } else {
+      console.error('onAnswersChecked is not a function')
+    }
   }
 
   return (
@@ -93,11 +110,13 @@ const Quiz: React.FC = () => {
                     key={optionIndex}
                     className={`flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 h-10 relative gap-4 p-2 ${
                       selectedAnswers[index] === optionIndex
-                        ? 'text-primary-400'
+                        ? optionIndex === correctAnswers[index]
+                          ? 'text-primary-400'
+                          : 'text-red-500' // Correct or incorrect feedback
                         : ''
                     }`}
                     onClick={(e) => {
-                      e.stopPropagation()
+                      e.stopPropagation() // Prevent click from closing the accordion
                       handleAnswerSelect(index, optionIndex)
                     }}
                   >
@@ -106,14 +125,18 @@ const Quiz: React.FC = () => {
                       alt="Radio Button"
                       className={`flex-grow-0 flex-shrink-0 ${
                         selectedAnswers[index] === optionIndex
-                          ? 'text-primary-400'
+                          ? optionIndex === correctAnswers[index]
+                            ? 'text-primary-400'
+                            : 'text-red-500' // Correct or incorrect feedback
                           : ''
                       }`}
                     />
                     <p
                       className={`flex-grow w-full text-base text-left ${
                         selectedAnswers[index] === optionIndex
-                          ? 'text-white font-bold'
+                          ? optionIndex === correctAnswers[index]
+                            ? 'text-white font-bold'
+                            : 'text-red-500' // Correct or incorrect feedback
                           : 'text-[#a8a7a8]'
                       }`}
                     >

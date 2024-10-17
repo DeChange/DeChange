@@ -16,7 +16,6 @@ import usdtBadge from '../../assets/icons/usdt-badge.svg'
 import roleBadge from '../../assets/icons/role-badge.svg'
 import certBadge from '../../assets/icons/cert-badge.svg'
 import defaultAvatar from '../../assets/images/default-avatar.svg'
-
 import WhatIsDeFi from './sections/IntroductionToDefi/WhatIsDefi'
 import HistoryOfDeFi from './sections/IntroductionToDefi/HistoryOfDefi'
 import DefiUsecase from './sections/IntroductionToDefi/DefiUsecase'
@@ -30,13 +29,14 @@ const IntroductionToDeFi: React.FC = () => {
   )
   const [isClaimRewardEnabled, setIsClaimRewardEnabled] = useState(false)
   const [showPopup, setShowPopup] = useState(false)
+  const [allAnswersCorrect, setAllAnswersCorrect] = useState(false) // Track if all answers are correct
 
   const sections = [
     <WhatIsDeFi key="WhatIsDeFi" />,
     <HistoryOfDeFi key="HistoryOfDeFi" />,
     <DefiUsecase key="DefiUsecase" />,
     <Practice key="Practice" />,
-    <Quiz key="Quiz" />,
+    <Quiz key="Quiz" onAnswersChecked={setAllAnswersCorrect} />, // Pass the function to check answers
   ]
 
   const handleNext = () => {
@@ -218,7 +218,8 @@ const IntroductionToDeFi: React.FC = () => {
               </div>
               <div className="flex flex-col justify-center items-end flex-grow gap-2">
                 <div
-                  className="flex justify-center items-center flex-grow-0 bg-[#7b51ea] flex-shrink-0 h-11 relative overflow-hidden px-4 py-2 rounded-lg"
+                  className="flex justify-center items-center flex-grow-0 bg-[#7b51ea]
+                  flex-shrink-0 h-11 relative overflow-hidden px-4 py-2 rounded-lg"
                   style={{
                     boxShadow:
                       '0px 0px 0px 0 rgba(123,81,234,0.19), 0px 0px 0px 0 rgba(123,81,234,0.25)',
@@ -226,11 +227,12 @@ const IntroductionToDeFi: React.FC = () => {
                 >
                   <button
                     onClick={handleNext}
-                    // disabled={
-                    //   currentSection === completedSections.length - 1 &&
-                    //   !isClaimRewardEnabled
-                    // }
-                    className="flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-2 px-2"
+                    disabled={currentSection === 4 && !allAnswersCorrect}
+                    className={`flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-2 px-2 ${
+                      currentSection === 4 && !allAnswersCorrect
+                        ? 'cursor-not-allowed'
+                        : ''
+                    }`}
                   >
                     <p className="flex-grow-0 flex-shrink-0 text-base font-medium text-left text-white">
                       {currentSection === 4 ? 'Submit' : 'Next'}
