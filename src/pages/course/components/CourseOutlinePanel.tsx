@@ -75,18 +75,18 @@ const CourseOutlinePanel: React.FC<{
         ))}
       </div>
       <div className="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 overflow-hidden gap-2 px-3.5 py-4 border-t border-r-0 border-b-0 border-l-0 border-[#171a20]">
-        <div
+        <button
           className={`flex justify-center items-center self-stretch flex-grow-0 flex-shrink-0 h-11 overflow-hidden px-4 py-2 rounded-lg ${
             isClaimRewardEnabled ? 'bg-[#7b51ea] text-white' : 'bg-[#7b51ea]/25'
           }`}
-          onClick={isClaimRewardEnabled ? onClaimReward : undefined} // Trigger the claim reward function
+          onClick={isClaimRewardEnabled ? onClaimReward : undefined}
         >
           <div className="flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-2 px-2">
             <p className="flex-grow-0 flex-shrink-0 text-base font-medium text-left">
               Claim Rewards
             </p>
           </div>
-        </div>
+        </button>
       </div>
     </div>
   )

@@ -21,8 +21,8 @@ const Popup: React.FC<PopupProps> = ({
   }
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="w-[653px] h-[453px] relative overflow-hidden rounded-3xl bg-[#060709]/[0.39] backdrop-blur-[15.4px]">
+    <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
+      <div className="w-[653px] h-[453px] relative overflow-hidden rounded-3xl border border-[#7B51EA2E] bg-[#060709]/[0.39] backdrop-blur-[15.4px]">
         <svg
           width={653}
           height={346}
