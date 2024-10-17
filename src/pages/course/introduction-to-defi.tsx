@@ -152,21 +152,79 @@ const IntroductionToDeFi: React.FC = () => {
           {/* Section Content */}
           <div className="mt-14 mb-28 w-full flex-col justify-start items-start gap-8 inline-flex">
             {sections[currentSection]}
-            <div className="flex justify-between items-center mt-4">
-              <button
-                onClick={handlePrevious}
-                disabled={currentSection === 0}
-                className="bg-[#7b51ea] text-white px-4 py-2 rounded"
-              >
-                Previous
-              </button>
-              <button
-                onClick={handleNext}
-                disabled={currentSection === completedSections.length - 1}
-                className="bg-[#7b51ea] text-white px-4 py-2 rounded"
-              >
-                Next
-              </button>
+            <div className="flex mt-14 justify-between items-start self-stretch flex-grow-0 flex-shrink-0 py-4">
+              <div className="flex flex-col justify-center items-start flex-grow gap-2">
+                <div
+                  className="flex justify-center items-center flex-grow-0 flex-shrink-0 h-11 relative overflow-hidden px-4 py-2 rounded-lg"
+                  style={{
+                    filter:
+                      'drop-shadow(0px 0px 0px rgba(123,81,234,0.19)) drop-shadow(0px 0px 0px rgba(123,81,234,0.25))',
+                  }}
+                >
+                  <svg
+                    width={18}
+                    height={18}
+                    viewBox="0 0 18 18"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="flex-grow-0 flex-shrink-0 w-[18px] h-[18px] relative"
+                    preserveAspectRatio="none"
+                  >
+                    <path
+                      d="M11.25 13.5L6.75 9L11.25 4.5"
+                      stroke="white"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  <button
+                    onClick={handlePrevious}
+                    disabled={currentSection === 0}
+                    className="flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-2 px-2"
+                  >
+                    <p className="flex-grow-0 flex-shrink-0 text-base font-medium text-left text-white">
+                      Previous
+                    </p>
+                  </button>
+                </div>
+              </div>
+              <div className="flex flex-col justify-center items-end flex-grow gap-2">
+                <div
+                  className="flex justify-center items-center flex-grow-0 flex-shrink-0 h-11 relative overflow-hidden px-4 py-2 rounded-lg bg-[#7b51ea]"
+                  style={{
+                    boxShadow:
+                      '0px 0px 0px 0 rgba(123,81,234,0.19), 0px 0px 0px 0 rgba(123,81,234,0.25)',
+                  }}
+                >
+                  <button
+                    onClick={handleNext}
+                    disabled={currentSection === completedSections.length - 1}
+                    className="flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-2 px-2"
+                  >
+                    <p className="flex-grow-0 flex-shrink-0 text-base font-medium text-left text-white">
+                      Next
+                    </p>
+                  </button>
+                  <svg
+                    width={19}
+                    height={18}
+                    viewBox="0 0 19 18"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="flex-grow-0 flex-shrink-0 w-[18px] h-[18px] relative"
+                    preserveAspectRatio="none"
+                  >
+                    <path
+                      d="M7.24316 13.5L11.7432 9L7.24316 4.5"
+                      stroke="white"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
+              </div>
             </div>
           </div>
         </div>

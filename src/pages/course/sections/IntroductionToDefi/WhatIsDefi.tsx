@@ -28,42 +28,6 @@ const WhatIsDeFi: React.FC = () => {
           Mauris pulvinar mollis mauris et posuere.{' '}
         </div>
       </div>
-      <div className="self-stretch py-4 justify-between items-start inline-flex">
-        <div className="grow shrink basis-0 flex-col justify-center items-end gap-2 inline-flex">
-          <div className="mt-14 flex flex-col justify-center items-end flex-grow gap-2">
-            <div
-              className="flex justify-center items-center flex-grow-0 flex-shrink-0 h-11 relative overflow-hidden px-4 py-2 rounded-lg bg-[#7b51ea]"
-              style={{
-                boxShadow:
-                  '0px 0px 0px 0 rgba(123,81,234,0.19), 0px 0px 0px 0 rgba(123,81,234,0.25)',
-              }}
-            >
-              <div className="flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-2 px-2">
-                <p className="flex-grow-0 flex-shrink-0 text-base font-medium text-left text-white">
-                  Next
-                </p>
-              </div>
-              <svg
-                width={19}
-                height={18}
-                viewBox="0 0 19 18"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="flex-grow-0 flex-shrink-0 w-[18px] h-[18px] relative"
-                preserveAspectRatio="none"
-              >
-                <path
-                  d="M7.24316 13.5L11.7432 9L7.24316 4.5"
-                  stroke="white"
-                  strokeWidth={2}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   )
 }
