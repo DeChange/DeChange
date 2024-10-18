@@ -17,15 +17,18 @@ const DefiUsecase: React.FC = () => {
             Here are a couple of use cases relevant to the application of Defi
             <br />
             <br />
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            DeFi allows users to lend and borrow assets without intermediaries.
             <br />
-            Nam sit amet odio massa.
+            Decentralized Exchanges (DEXs).
             <br />
-            Maecenas et lorem et quam malesuada dignissim nec eu est.
+            Digital currencies pegged to traditional assets like the US dollar
+            for stability.
             <br />
-            Mauris pulvinar mollis mauris et posuere.
+            Users earn rewards by providing liquidity to decentralized
+            platforms.
             <br />
-            Proin sed hendrerit erat. Interdum et malesuada.
+            Physical assets, like real estate, are converted into digital
+            tokens.
           </p>
         </div>
       </div>
