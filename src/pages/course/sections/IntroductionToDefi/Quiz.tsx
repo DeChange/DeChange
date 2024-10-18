@@ -2,7 +2,7 @@ import Image from 'next/image'
 import React, { Dispatch, SetStateAction, useState } from 'react'
 
 import arrowDown from '../../../../assets/icons/arrow-down.svg'
-import arrowSide from '../../../../assets/icons/arrow-side.svg'
+import arrowRight from '../../../../assets/icons/arrow-side.svg'
 import radioButton from '../../../../assets/icons/radio-button.svg'
 
 interface QuizProps {
@@ -90,7 +90,7 @@ const Quiz: React.FC<QuizProps> = ({ onAnswersChecked }) => {
             >
               <div className="flex justify-start items-center flex-grow relative gap-[7px]">
                 <Image
-                  src={activeAccordion === index ? arrowDown : arrowSide}
+                  src={activeAccordion === index ? arrowDown : arrowRight}
                   alt="Arrow"
                   className="flex-grow-0 flex-shrink-0"
                 />
