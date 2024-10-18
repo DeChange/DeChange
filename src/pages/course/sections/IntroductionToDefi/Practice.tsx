@@ -2,6 +2,7 @@ import Image from 'next/image'
 import React from 'react'
 
 import arrowRight from '../../../../assets/icons/arrow-side.svg'
+import verify from '../../../../assets/icons/verification-badge.svg'
 
 const Practice: React.FC = () => {
   return (
@@ -90,25 +91,11 @@ const Practice: React.FC = () => {
                 Bridge into Base
               </p>
             </div>
-            <div className="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-2 p-2 rounded-[20px] bg-[#ded3fa]">
-              <svg
-                width={18}
-                height={18}
-                viewBox="0 0 18 18"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="flex-grow-0 flex-shrink-0 w-[18px] h-[18px] relative"
-                preserveAspectRatio="none"
-              >
-                <path
-                  d="M15 4.5L6.75 12.75L3 9"
-                  stroke="#6B02FF"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </div>
+            <Image
+              src={verify}
+              alt="Arrow"
+              className="flex-grow-0 flex-shrink-0"
+            />
           </div>
         </div>
       </div>
