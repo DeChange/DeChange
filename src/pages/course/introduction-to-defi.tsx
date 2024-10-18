@@ -32,6 +32,7 @@ const IntroductionToDeFi: React.FC = () => {
   const [showPopup, setShowPopup] = useState(false)
   const [allAnswersCorrect, setAllAnswersCorrect] = useState(false)
   const [showConfetti, setShowConfetti] = useState(false)
+  const [rewardsClaimed, setRewardsClaimed] = useState(false)
 
   const sections = [
     <WhatIsDeFi key="WhatIsDeFi" />,
@@ -61,7 +62,7 @@ const IntroductionToDeFi: React.FC = () => {
       console.log('Submitting the quiz...') // Temporary submission logic
       setCompletedSections((prev) => {
         const newCompleted = [...prev]
-        newCompleted[currentSection] = true // Mark the quiz section as completed
+        newCompleted[currentSection] = true
         return newCompleted
       })
       setIsClaimRewardEnabled(true)
@@ -78,6 +79,7 @@ const IntroductionToDeFi: React.FC = () => {
   const handleClaimReward = () => {
     setShowConfetti(true)
     setShowPopup(true)
+    setRewardsClaimed(true)
     // Claim reward logic goes here
     setTimeout(() => {
       setShowConfetti(false) // Hide confetti after a short duration
@@ -241,9 +243,13 @@ const IntroductionToDeFi: React.FC = () => {
                 >
                   <button
                     onClick={handleNext}
-                    disabled={currentSection === 4 && !allAnswersCorrect}
+                    disabled={
+                      rewardsClaimed ||
+                      (currentSection === 4 && !allAnswersCorrect)
+                    }
                     className={`flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-2 px-2 ${
-                      currentSection === 4 && !allAnswersCorrect
+                      (currentSection === 4 && !allAnswersCorrect) ||
+                      rewardsClaimed
                         ? 'cursor-not-allowed'
                         : ''
                     }`}
@@ -282,6 +288,7 @@ const IntroductionToDeFi: React.FC = () => {
             currentSection={currentSection}
             isClaimRewardEnabled={isClaimRewardEnabled}
             onClaimReward={handleClaimReward}
+            rewardsClaimed={rewardsClaimed}
           />
           <div className="flex flex-col justify-start items-start w-[252px] h-[226px] relative overflow-hidden rounded-3xl bg-white/[0.02] backdrop-blur-xl">
             <div className="flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden gap-2 px-4 py-2.5 border-t-0 border-r-0 border-b border-l-0 border-[#7b51ea]/25">
