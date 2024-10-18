@@ -2,7 +2,7 @@ async function main() {
   const [deployer] = await ethers.getSigners();
 
   console.log("Deploying contracts with the account:", deployer.address);
-  console.log("Account balance:", (await deployer.getBalance()).toString());
+ // console.log("Account balance:", (await deployer.getBalance()).toString());
 
   // Deploy SoulBoundToken contract
   const SoulBoundToken = await ethers.getContractFactory("SoulBoundToken");
@@ -14,8 +14,8 @@ async function main() {
   const DeChange = await ethers.getContractFactory("DeChange");
 
   // Replace with actual SmartWallet and BaseNames addresses
-  const smartWalletAddress = "0xYourSmartWalletAddress";
-  const baseNamesAddress = "0xYourBaseNamesAddress";
+  const smartWalletAddress = "0x33040e379990614f6c890E9E7f62FF6A022EE326";
+  const baseNamesAddress = "0xmelasin⚑⚑.base.eth";
 
   const deChange = await DeChange.deploy(smartWalletAddress, baseNamesAddress, soulBoundToken.address);
   await deChange.deployed();
