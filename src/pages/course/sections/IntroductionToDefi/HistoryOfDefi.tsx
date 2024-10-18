@@ -6,9 +6,14 @@ import playButton from '../../../../assets/icons/play-button.svg'
 
 const HistoryOfDeFi: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const handlePlayVideo = () => {
-    setIsPlaying(true)
+    setIsLoading(true)
+    setTimeout(() => {
+      setIsPlaying(true)
+      setIsLoading(false)
+    }, 1500)
   }
 
   return (
@@ -23,20 +28,30 @@ const HistoryOfDeFi: React.FC = () => {
         <p className="text-xl mt-8 text-left text-white">Watch this video</p>
       </div>
 
-      <div className="relative w-full -mt-3 h-[358px] flex justify-center items-center">
-        {!isPlaying && (
-          <>
-            <div className="absolute inset-0 bg-black opacity-65 rounded-3xl  h-[354px]" />
+      <div className="relative w-full h-[358px] flex justify-center items-center">
+        {isLoading && (
+          <div className="absolute inset-0 flex justify-center items-center bg-black opacity-65 rounded-3xl">
+            <p className="text-white text-lg">Loading...</p>{' '}
+          </div>
+        )}
+
+        {/* Preview image */}
+        {!isPlaying && !isLoading && (
+          <div className="absolute inset-0 rounded-3xl">
             <Image
               src={previewImage}
               alt="Preview"
-              className="flex-grow-0 flex-shrink-0 rounded-3xl"
-              width={768}
-              height={358}
+              className="rounded-3xl object-cover"
+              layout="fill"
             />
-          </>
+          </div>
         )}
 
+        {!isPlaying && !isLoading && (
+          <div className="absolute inset-0 bg-black opacity-65 rounded-3xl" />
+        )}
+
+        {/* Play button */}
         {!isPlaying ? (
           <button onClick={handlePlayVideo} className="absolute">
             <Image
