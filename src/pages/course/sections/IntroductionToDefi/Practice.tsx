@@ -1,10 +1,45 @@
 import Image from 'next/image'
-import React from 'react'
+import React, { useState } from 'react'
 
 import arrowRight from '../../../../assets/icons/arrow-side.svg'
 import verify from '../../../../assets/icons/verification-badge.svg'
 
 const Practice: React.FC = () => {
+  // State to track completion of each quest
+  const [questsCompleted, setQuestsCompleted] = useState({
+    claimFaucet: false,
+    swapTokens: false,
+    bridgeToBase: false,
+  })
+
+  // Function to handle quest completion
+  const handleQuestCompletion = (quest: keyof typeof questsCompleted) => {
+    let url = ''
+
+    // Set the URL based on the quest
+    switch (quest) {
+      case 'claimFaucet':
+        url = 'https://faucets.chain.link/' // Link for Claim faucet at Alchemy
+        break
+      case 'swapTokens':
+        url = 'https://wallet.coinbase.com/swap' // Link for Swap tokens at Uniswap
+        break
+      case 'bridgeToBase':
+        url = 'https://testnets.superbridge.app/base-sepolia' // Link for Bridge into Base
+        break
+      default:
+        return
+    }
+
+    // Open the external site
+    window.open(url, '_blank')
+    // Update the state to mark the quest as completed
+    setQuestsCompleted((prevState) => ({
+      ...prevState,
+      [quest]: true,
+    }))
+  }
+
   return (
     <div className="flex flex-col justify-start items-start w-full gap-8">
       <div className="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 relative gap-[9px]">
@@ -16,6 +51,41 @@ const Practice: React.FC = () => {
         </div>
       </div>
       <div className="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 gap-4">
+        {/* Claim faucet at Alchemy */}
+        <div className="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 overflow-hidden gap-4 p-2.5 rounded-2xl bg-transparent">
+          <div className="flex justify-between items-center self-stretch flex-grow-0 flex-shrink-0">
+            <div className="flex  justify-start items-center flex-grow relative gap-[7px]">
+              <Image
+                src={arrowRight}
+                alt="Arrow"
+                className="flex-grow-0 flex-shrink-0"
+              />
+              <p className="flex-grow w-full text-xl font-medium text-left text-white">
+                Claim faucet at Chainlink
+              </p>
+            </div>
+            {questsCompleted.claimFaucet ? (
+              <Image
+                src={verify}
+                alt="Verified"
+                className="flex-grow-0 flex-shrink-0"
+              />
+            ) : (
+              <div
+                className="flex cursor-pointer justify-center items-center flex-grow-0 flex-shrink-0 overflow-hidden px-3 py-2 rounded-lg bg-[#2a5450]"
+                onClick={() => handleQuestCompletion('claimFaucet')}
+              >
+                <div className="flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-2 px-2">
+                  <p className="flex-grow-0 flex-shrink-0 text-base font-medium text-left text-[#68d2c8]">
+                    Complete Quest
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Swap tokens at Uniswap */}
         <div className="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 overflow-hidden gap-4 p-2.5 rounded-2xl bg-transparent">
           <div className="flex justify-between items-center self-stretch flex-grow-0 flex-shrink-0">
             <div className="flex justify-start items-center flex-grow relative gap-[7px]">
@@ -25,39 +95,31 @@ const Practice: React.FC = () => {
                 className="flex-grow-0 flex-shrink-0"
               />
               <p className="flex-grow w-full text-xl font-medium text-left text-white">
-                Claim faucet at Alchemy
+                Swap tokens at Coinbase
               </p>
             </div>
-            <div className="flex justify-center items-center flex-grow-0 flex-shrink-0 overflow-hidden px-3 py-2 rounded-lg bg-[#2a5450]">
-              <div className="flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-2 px-2">
-                <p className="flex-grow-0 flex-shrink-0 text-base font-medium text-left text-[#68d2c8]">
-                  Complete Quest
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 overflow-hidden gap-4 p-2.5 rounded-2xl bg-transparent">
-          <div className="flex justify-between items-center self-stretch flex-grow-0 flex-shrink-0">
-            <div className="flex justify-start items-center flex-grow relative gap-[7px]">
+            {questsCompleted.swapTokens ? (
               <Image
-                src={arrowRight}
-                alt="Arrow"
+                src={verify}
+                alt="Verified"
                 className="flex-grow-0 flex-shrink-0"
               />
-              <p className="flex-grow w-full text-xl font-medium text-left text-white">
-                Swap tokens at Uniswap
-              </p>
-            </div>
-            <div className="flex justify-center items-center flex-grow-0 flex-shrink-0 overflow-hidden px-3 py-2 rounded-lg bg-[#2a5450]">
-              <div className="flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-2 px-2">
-                <p className="flex-grow-0 flex-shrink-0 text-base font-medium text-left text-[#68d2c8]">
-                  Complete Quest
-                </p>
+            ) : (
+              <div
+                className="flex cursor-pointer justify-center items-center flex-grow-0 flex-shrink-0 overflow-hidden px-3 py-2 rounded-lg bg-[#2a5450]"
+                onClick={() => handleQuestCompletion('swapTokens')}
+              >
+                <div className="flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-2 px-2">
+                  <p className="flex-grow-0 flex-shrink-0 text-base font-medium text-left text-[#68d2c8]">
+                    Complete Quest
+                  </p>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
+
+        {/* Bridge into Base */}
         <div className="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 overflow-hidden gap-4 p-2.5 rounded-2xl bg-transparent">
           <div className="flex justify-between items-center self-stretch flex-grow-0 flex-shrink-0">
             <div className="flex justify-start items-center flex-grow relative gap-[7px]">
@@ -70,32 +132,24 @@ const Practice: React.FC = () => {
                 Bridge into Base
               </p>
             </div>
-            <div className="flex justify-center items-center flex-grow-0 flex-shrink-0 overflow-hidden px-3 py-2 rounded-lg bg-[#2a5450]">
-              <div className="flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-2 px-2">
-                <p className="flex-grow-0 flex-shrink-0 text-base font-medium text-left text-[#68d2c8]">
-                  Complete Quest
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 overflow-hidden gap-4 p-2.5 rounded-2xl bg-transparent">
-          <div className="flex justify-between items-center self-stretch flex-grow-0 flex-shrink-0">
-            <div className="flex justify-start items-center flex-grow relative gap-[7px]">
+            {questsCompleted.bridgeToBase ? (
               <Image
-                src={arrowRight}
-                alt="Arrow"
+                src={verify}
+                alt="Verified"
                 className="flex-grow-0 flex-shrink-0"
               />
-              <p className="flex-grow w-full text-xl font-medium text-left text-white">
-                Bridge into Base
-              </p>
-            </div>
-            <Image
-              src={verify}
-              alt="Arrow"
-              className="flex-grow-0 flex-shrink-0"
-            />
+            ) : (
+              <div
+                className="flex cursor-pointer justify-center items-center flex-grow-0 flex-shrink-0 overflow-hidden px-3 py-2 rounded-lg bg-[#2a5450]"
+                onClick={() => handleQuestCompletion('bridgeToBase')}
+              >
+                <div className="flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-2 px-2">
+                  <p className="flex-grow-0 flex-shrink-0 text-base font-medium text-left text-[#68d2c8]">
+                    Complete Quest
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
