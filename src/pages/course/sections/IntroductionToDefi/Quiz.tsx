@@ -86,7 +86,7 @@ const Quiz: React.FC<QuizProps> = ({ onAnswersChecked }) => {
           >
             <div
               className="flex justify-between items-center self-stretch flex-grow-0 flex-shrink-0 h-11"
-              onClick={() => toggleAccordion(index)} // Only toggle on arrow click
+              onClick={() => toggleAccordion(index)}
             >
               <div className="flex justify-start items-center flex-grow relative gap-[7px]">
                 <Image
@@ -112,11 +112,11 @@ const Quiz: React.FC<QuizProps> = ({ onAnswersChecked }) => {
                       selectedAnswers[index] === optionIndex
                         ? optionIndex === correctAnswers[index]
                           ? 'text-primary-400'
-                          : 'text-red-500' // Correct or incorrect feedback
+                          : 'text-red-500'
                         : ''
                     }`}
                     onClick={(e) => {
-                      e.stopPropagation() // Prevent click from closing the accordion
+                      e.stopPropagation()
                       handleAnswerSelect(index, optionIndex)
                     }}
                   >
@@ -127,7 +127,7 @@ const Quiz: React.FC<QuizProps> = ({ onAnswersChecked }) => {
                         selectedAnswers[index] === optionIndex
                           ? optionIndex === correctAnswers[index]
                             ? 'text-primary-400'
-                            : 'text-red-500' // Correct or incorrect feedback
+                            : 'text-red-500'
                           : ''
                       }`}
                     />
@@ -136,7 +136,7 @@ const Quiz: React.FC<QuizProps> = ({ onAnswersChecked }) => {
                         selectedAnswers[index] === optionIndex
                           ? optionIndex === correctAnswers[index]
                             ? 'text-white font-bold'
-                            : 'text-red-500' // Correct or incorrect feedback
+                            : 'text-red-500'
                           : 'text-[#a8a7a8]'
                       }`}
                     >
