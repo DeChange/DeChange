@@ -15,7 +15,7 @@ const CourseOutlinePanel: React.FC<{
   onClaimReward: () => void
   rewardsClaimed: boolean
 }> = ({
-  completedSections,
+  completedSections = [],
   currentSection,
   isClaimRewardEnabled,
   onClaimReward,
