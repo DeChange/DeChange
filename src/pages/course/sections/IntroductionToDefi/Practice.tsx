@@ -12,28 +12,24 @@ const Practice: React.FC = () => {
     bridgeToBase: false,
   })
 
-  // Function to handle quest completion
   const handleQuestCompletion = (quest: keyof typeof questsCompleted) => {
     let url = ''
 
-    // Set the URL based on the quest
     switch (quest) {
       case 'claimFaucet':
-        url = 'https://faucets.chain.link/' // Link for Claim faucet at Alchemy
+        url = 'https://faucets.chain.link/'
         break
       case 'swapTokens':
-        url = 'https://wallet.coinbase.com/swap' // Link for Swap tokens at Uniswap
+        url = 'https://wallet.coinbase.com/swap'
         break
       case 'bridgeToBase':
-        url = 'https://testnets.superbridge.app/base-sepolia' // Link for Bridge into Base
+        url = 'https://testnets.superbridge.app/base-sepolia'
         break
       default:
         return
     }
 
-    // Open the external site
     window.open(url, '_blank')
-    // Update the state to mark the quest as completed
     setQuestsCompleted((prevState) => ({
       ...prevState,
       [quest]: true,
