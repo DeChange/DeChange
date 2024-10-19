@@ -4,28 +4,25 @@ async function main() {
   console.log("Deploying contracts with the account:", deployer.address);
   console.log("Account balance:", (await deployer.provider.getBalance(deployer.address)).toString());
 
-  // Deploy SoulBoundToken contract
-  const SoulBoundToken = await ethers.getContractFactory("SoulBoundToken");
-  const soulBoundToken = await SoulBoundToken.deploy();
+  // SoulBoundToken address
+  const soulBoundTokenAddress = "0xD0957D9219EB60Af476D86b240650BB6785b1599";
 
-  console.log("SoulBoundToken deployment status:", soulBoundToken);  // Log the full object
-
-  const soulBoundTokenAddress = soulBoundToken.target;  // Access the correct property
-  if (!soulBoundTokenAddress) {
-    console.error("SoulBoundToken deployment failed.");
-    return;
-  }
-  console.log("SoulBoundToken deployed to:", soulBoundTokenAddress);
+   // Deploy SoulBoundToken contract
+   const SoulBoundToken = await ethers.getContractFactory("SoulBoundToken");
+   const soulBoundToken = await SoulBoundToken.deploy();
+   await soulBoundToken.deployed();
+   console.log("SoulBoundToken deployed to:", soulBoundToken.address);
 
   // Deploy DeChange contract
   const DeChange = await ethers.getContractFactory("DeChange");
 
-  // Replace with actual SmartWallet and BaseNames addresses
+  // Use zero address as a placeholder for baseNamesAddress
   const smartWalletAddress = "0x33040e379990614f6c890E9E7f62FF6A022EE326";
-  const baseNamesAddress = "0xmelasin⚑⚑.base.eth";
+  const baseNamesAddress = "0x0000000000000000000000000000000000000000";
 
   const deChange = await DeChange.deploy(smartWalletAddress, baseNamesAddress, soulBoundTokenAddress);
-  console.log("DeChange contract deployed to:", deChange.address);
+  await deChange.waitForDeployment();
+  console.log("DeChange contract deployed to:", await deChange.getAddress());
 }
 
 main()
