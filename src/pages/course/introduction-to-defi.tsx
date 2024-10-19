@@ -82,7 +82,7 @@ const IntroductionToDeFi: React.FC = () => {
     setRewardsClaimed(true)
     // Claim reward logic goes here
     setTimeout(() => {
-      setShowConfetti(false) // Hide confetti after a short duration
+      setShowConfetti(false)
     }, 7000)
   }
 
