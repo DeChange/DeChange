@@ -1,16 +1,16 @@
 require("@nomicfoundation/hardhat-ethers");
 require('@nomicfoundation/hardhat-toolbox');
-require("dotenv").config();
+require("dotenv").config();  // Load environment variables
 
 const { ALCHEMY_RPC_URL, PRIVATE_KEY } = process.env;
 
 module.exports = {
   solidity: "0.8.1",
   networks: {
-    base: {
-      url: ALCHEMY_RPC_URL || "https://base-goerli.infura.io/v3/YOUR_INFURA_PROJECT_ID", // Replace with Alchemy or Infura
-      chainId: 84532, // Base testnet chainId
-      accounts: [PRIVATE_KEY],
+    baseSepolia: {
+      url: ALCHEMY_RPC_URL,  // Use Base Sepolia RPC URL from .env
+      chainId: 534351,       // Base Sepolia chain ID
+      accounts: [PRIVATE_KEY],  // Private key from .env
     },
   },
 };
