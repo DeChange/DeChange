@@ -108,9 +108,10 @@ const IntroductionToDeFi: React.FC = () => {
                 Introduction to Defi
               </div>
               <div className="h-14 text-[#a8a7a7] mb-2 text-xs font-normal font-['Figtree']">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sit
-                amet odio massa. Maecenas et lorem et quam malesuada dignissim
-                nec eu est. Mauris pulvinar mollis mauris et posuere.
+                DeFi, or Decentralized Finance, revolutionizes traditional
+                financial This course will guide you through the fundamental
+                concepts of DeFi, its applications, and how to navigate this
+                innovative financial landscape.
               </div>
               <div className="flex justify-start items-center gap-5">
                 <div className="flex items-center gap-3">
