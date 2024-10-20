@@ -67,7 +67,7 @@ DeChange is a decentralized educational platform that leverages blockchain techn
 ## Tech Stack
 
 - **Frontend**: React, Next.js
-- **Blockchain**: Ethereum
+- **Blockchain**: Base
 - **Wallet Integration**: MetaMask, WalletConnect
 - **State Management**: React Context, Zustand
 - **UI Framework**: Tailwind CSS
