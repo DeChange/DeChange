@@ -76,6 +76,8 @@ DeChange is a decentralized educational platform that leverages blockchain techn
 ## Smart Contract Details
 
 The smart contract defines several functions that facilitate user registration, quest management, and reward distribution.
+DeChange Contract address: 0xbA43C9d6D80b92AB28eac94D24B923C18eE48dB8
+SoulBoundToken deployed to: 0xD0957D9219EB60Af476D86b240650BB6785b1599
 
 ### Read Functions
 
