@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout from '../../components/Layout'
 import CourseOutlinePanel from './components/CourseOutlinePanel'
 import Popup from './components/Popup'
 import Image from 'next/image'
 import Confetti from 'react-confetti'
-
 import preview from '../../assets/images/preview-image.png'
 import demoUser1 from '../../assets/images/demo-user1.svg'
 import demoUser2 from '../../assets/images/demo-user2.svg'
@@ -17,22 +16,28 @@ import usdtBadge from '../../assets/icons/usdt-badge.svg'
 import roleBadge from '../../assets/icons/role-badge.svg'
 import certBadge from '../../assets/icons/cert-badge.svg'
 import defaultAvatar from '../../assets/images/default-avatar.svg'
-import WhatIsDeFi from './sections/IntroductionToDefi/WhatIsDefi'
 import HistoryOfDeFi from './sections/IntroductionToDefi/HistoryOfDefi'
+import WhatIsDeFi from './sections/IntroductionToDefi/WhatIsDefi'
+
 import DefiUsecase from './sections/IntroductionToDefi/DefiUsecase'
 import Practice from './sections/IntroductionToDefi/Practice'
 import Quiz from './sections/IntroductionToDefi/Quiz'
+import { useAppContext } from '../../context/AppContext'
 
 const IntroductionToDeFi: React.FC = () => {
-  const [currentSection, setCurrentSection] = useState(0)
-  const [completedSections, setCompletedSections] = useState<boolean[]>(
-    Array(5).fill(false),
-  )
+  const {
+    currentSection,
+    setCurrentSection,
+    contextCompletedSections,
+    setContextCompletedSections,
+  } = useAppContext()
+
   const [isClaimRewardEnabled, setIsClaimRewardEnabled] = useState(false)
   const [showPopup, setShowPopup] = useState(false)
   const [allAnswersCorrect, setAllAnswersCorrect] = useState(false)
   const [showConfetti, setShowConfetti] = useState(false)
   const [rewardsClaimed, setRewardsClaimed] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   const sections = [
     <WhatIsDeFi key="WhatIsDeFi" />,
@@ -43,24 +48,22 @@ const IntroductionToDeFi: React.FC = () => {
   ]
 
   const handleNext = () => {
-    if (currentSection < completedSections.length - 1) {
-      setCompletedSections((prev) => {
+    if (currentSection < contextCompletedSections.length - 1) {
+      setContextCompletedSections((prev) => {
         const newCompleted = [...prev]
         newCompleted[currentSection] = true
         return newCompleted
       })
       setCurrentSection((prev) => prev + 1)
     } else {
-      // Last section (Quiz) submission logic
       if (allAnswersCorrect) {
         setShowConfetti(true)
         setTimeout(() => {
           setShowConfetti(false)
         }, 7000)
       }
-      // Last section (Quiz) submission logic
-      console.log('Submitting the quiz...') // Temporary submission logic
-      setCompletedSections((prev) => {
+      console.log('Submitting the quiz...')
+      setContextCompletedSections((prev) => {
         const newCompleted = [...prev]
         newCompleted[currentSection] = true
         return newCompleted
@@ -80,7 +83,6 @@ const IntroductionToDeFi: React.FC = () => {
     setShowConfetti(true)
     setShowPopup(true)
     setRewardsClaimed(true)
-    // Claim reward logic goes here
     setTimeout(() => {
       setShowConfetti(false)
     }, 7000)
@@ -88,6 +90,18 @@ const IntroductionToDeFi: React.FC = () => {
 
   const closePopup = () => {
     setShowPopup(false)
+  }
+
+  useEffect(() => {
+    const storedSections = localStorage.getItem('completedSections')
+    if (storedSections) {
+      setContextCompletedSections(JSON.parse(storedSections))
+    }
+    setLoading(false)
+  }, [setContextCompletedSections])
+
+  if (loading) {
+    return <div>Loading...</div>
   }
 
   return (
@@ -105,13 +119,13 @@ const IntroductionToDeFi: React.FC = () => {
             />
             <div className="flex-grow h-full flex flex-col justify-between pl-4">
               <div className="text-white text-2xl font-medium font-['Figtree']">
-                Introduction to Defi
+                Introduction to DeFi
               </div>
               <div className="h-14 text-[#a8a7a7] mb-2 text-xs font-normal font-['Figtree']">
                 DeFi, or Decentralized Finance, revolutionizes traditional
-                financial This course will guide you through the fundamental
-                concepts of DeFi, its applications, and how to navigate this
-                innovative financial landscape.
+                financial systems. This course will guide you through the
+                fundamental concepts of DeFi, its applications, and how to
+                navigate this innovative financial landscape.
               </div>
               <div className="flex justify-start items-center gap-5">
                 <div className="flex items-center gap-3">
@@ -190,7 +204,7 @@ const IntroductionToDeFi: React.FC = () => {
 
           {/* Section Content */}
           <div className="mt-14 mb-28 w-full flex-col justify-start items-start gap-8 inline-flex">
-            {sections[currentSection]}
+            {sections[currentSection]} {/* Render sections directly */}
             <div className="flex mt-14 justify-between items-start self-stretch flex-grow-0 flex-shrink-0 py-4">
               <div className="flex flex-col justify-center items-start flex-grow gap-2">
                 <div
@@ -235,8 +249,7 @@ const IntroductionToDeFi: React.FC = () => {
               </div>
               <div className="flex flex-col justify-center items-end flex-grow gap-2">
                 <div
-                  className="flex justify-center items-center flex-grow-0 bg-[#7b51ea]
-                  flex-shrink-0 h-11 relative overflow-hidden px-4 py-2 rounded-lg"
+                  className="flex justify-center items-center flex-grow-0 bg-[#7b51ea] flex-shrink-0 h-11 relative overflow-hidden px-4 py-2 rounded-lg"
                   style={{
                     boxShadow:
                       '0px 0px 0px 0 rgba(123,81,234,0.19), 0px 0px 0px 0 rgba(123,81,234,0.25)',
@@ -285,7 +298,7 @@ const IntroductionToDeFi: React.FC = () => {
         {/* Participants and Rank Section */}
         <div className="flex-grow h-full flex flex-col justify-between pl-4 gap-8">
           <CourseOutlinePanel
-            completedSections={completedSections}
+            completedSections={contextCompletedSections}
             currentSection={currentSection}
             isClaimRewardEnabled={isClaimRewardEnabled}
             onClaimReward={handleClaimReward}
@@ -357,8 +370,6 @@ const IntroductionToDeFi: React.FC = () => {
           </div>
         </div>
       </div>
-
-      {/* Popup for Claim Reward */}
       {showPopup && (
         <Popup
           title="Viola, Course completed."

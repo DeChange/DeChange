@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import React, { Dispatch, SetStateAction, useState } from 'react'
+import { useAppContext } from '../../../../context/AppContext'
 
 import arrowDown from '../../../../assets/icons/arrow-down.svg'
 import arrowRight from '../../../../assets/icons/arrow-side.svg'
@@ -12,6 +13,7 @@ interface QuizProps {
 const Quiz: React.FC<QuizProps> = ({ onAnswersChecked }) => {
   const [activeAccordion, setActiveAccordion] = useState<number | null>(0)
   const [selectedAnswers, setSelectedAnswers] = useState<number[]>([])
+  const { completedQuizzes, setCompletedQuizzes } = useAppContext()
 
   const questions = [
     {
@@ -47,11 +49,16 @@ const Quiz: React.FC<QuizProps> = ({ onAnswersChecked }) => {
       (answer, index) => answer === correctAnswers[index],
     )
 
-    // Check if onAnswersChecked is a function before calling it
     if (typeof onAnswersChecked === 'function') {
-      onAnswersChecked(allCorrect) // Call the prop function with the result
+      onAnswersChecked(allCorrect)
     } else {
       console.error('onAnswersChecked is not a function')
+    }
+
+    if (allCorrect) {
+      const updatedQuizzes = [...completedQuizzes]
+      updatedQuizzes[questionIndex] = true
+      setCompletedQuizzes(updatedQuizzes)
     }
   }
 
