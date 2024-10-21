@@ -80,7 +80,6 @@ const Home: React.FC = () => {
           <Header />
           <Tags onSelect={setSelectedTag} />
 
-          {/* All Courses Section */}
           <div className="grid grid-cols-4 gap-2 mt-8">
             {filteredCourses.length > 0 ? (
               filteredCourses.map((course) => (

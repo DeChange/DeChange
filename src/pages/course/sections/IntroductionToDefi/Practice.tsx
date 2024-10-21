@@ -1,18 +1,14 @@
 import Image from 'next/image'
-import React, { useState } from 'react'
+import React from 'react'
+import { useAppContext } from '../../../../context/AppContext'
 
 import arrowRight from '../../../../assets/icons/arrow-side.svg'
 import verify from '../../../../assets/icons/verification-badge.svg'
 
 const Practice: React.FC = () => {
-  // State to track completion of each quest
-  const [questsCompleted, setQuestsCompleted] = useState({
-    claimFaucet: false,
-    swapTokens: false,
-    bridgeToBase: false,
-  })
+  const { completedQuests, setCompletedQuests } = useAppContext()
 
-  const handleQuestCompletion = (quest: keyof typeof questsCompleted) => {
+  const handleQuestCompletion = (quest: keyof typeof completedQuests) => {
     let url = ''
 
     switch (quest) {
@@ -30,7 +26,7 @@ const Practice: React.FC = () => {
     }
 
     window.open(url, '_blank')
-    setQuestsCompleted((prevState) => ({
+    setCompletedQuests((prevState) => ({
       ...prevState,
       [quest]: true,
     }))
@@ -50,7 +46,7 @@ const Practice: React.FC = () => {
         {/* Claim faucet at Alchemy */}
         <div className="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 overflow-hidden gap-4 p-2.5 rounded-2xl bg-transparent">
           <div className="flex justify-between items-center self-stretch flex-grow-0 flex-shrink-0">
-            <div className="flex  justify-start items-center flex-grow relative gap-[7px]">
+            <div className="flex justify-start items-center flex-grow relative gap-[7px]">
               <Image
                 src={arrowRight}
                 alt="Arrow"
@@ -60,7 +56,7 @@ const Practice: React.FC = () => {
                 Claim faucet at Chainlink
               </p>
             </div>
-            {questsCompleted.claimFaucet ? (
+            {completedQuests.claimFaucet ? (
               <Image
                 src={verify}
                 alt="Verified"
@@ -94,7 +90,7 @@ const Practice: React.FC = () => {
                 Swap tokens at Coinbase
               </p>
             </div>
-            {questsCompleted.swapTokens ? (
+            {completedQuests.swapTokens ? (
               <Image
                 src={verify}
                 alt="Verified"
@@ -128,7 +124,7 @@ const Practice: React.FC = () => {
                 Bridge into Base
               </p>
             </div>
-            {questsCompleted.bridgeToBase ? (
+            {completedQuests.bridgeToBase ? (
               <Image
                 src={verify}
                 alt="Verified"
