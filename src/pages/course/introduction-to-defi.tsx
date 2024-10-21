@@ -130,7 +130,7 @@ const IntroductionToDeFi: React.FC = () => {
                   </div>
                   <div className="px-2 py-0.5 bg-[#ded3f9] rounded flex items-center">
                     <div className="text-[#361689] text-xs font-normal font-['Figtree']">
-                      Defi & Blockchain
+                      DeFi
                     </div>
                   </div>
                 </div>
