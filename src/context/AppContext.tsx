@@ -7,6 +7,10 @@ interface AppContextProps {
   setCompletedQuests: React.Dispatch<
     React.SetStateAction<Record<string, boolean>>
   >
+  currentSection: number
+  setCurrentSection: React.Dispatch<React.SetStateAction<number>>
+  contextCompletedSections: boolean[]
+  setContextCompletedSections: React.Dispatch<React.SetStateAction<boolean[]>>
 }
 
 const AppContext = createContext<AppContextProps | undefined>(undefined)
@@ -15,38 +19,57 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [completedQuizzes, setCompletedQuizzes] = useState<boolean[]>(() => {
-    if (typeof window !== 'undefined') {
-      const storedQuizzes = localStorage.getItem('completedQuizzes')
-      return storedQuizzes ? JSON.parse(storedQuizzes) : [false, false] // Default for 2 quizzes
-    }
-    return [false, false] // Default for SSR
+    const storedQuizzes =
+      typeof window !== 'undefined'
+        ? localStorage.getItem('completedQuizzes')
+        : null
+    return storedQuizzes ? JSON.parse(storedQuizzes) : [false, false] // Default for 2 quizzes
   })
 
   const [completedQuests, setCompletedQuests] = useState<
     Record<string, boolean>
   >(() => {
-    if (typeof window !== 'undefined') {
-      const storedQuests = localStorage.getItem('completedQuests')
-      return storedQuests
-        ? JSON.parse(storedQuests)
-        : {
-            claimFaucet: false,
-            swapTokens: false,
-            bridgeToBase: false,
-          }
-    }
-    return {
-      claimFaucet: false,
-      swapTokens: false,
-      bridgeToBase: false,
-    } // Default for SSR
+    const storedQuests =
+      typeof window !== 'undefined'
+        ? localStorage.getItem('completedQuests')
+        : null
+    return storedQuests
+      ? JSON.parse(storedQuests)
+      : {
+          claimFaucet: false,
+          swapTokens: false,
+          bridgeToBase: false,
+        }
+  })
+
+  const [currentSection, setCurrentSection] = useState<number>(() => {
+    const storedSection =
+      typeof window !== 'undefined'
+        ? localStorage.getItem('currentSection')
+        : null
+    return storedSection ? JSON.parse(storedSection) : 0 // Default to the first section
+  })
+
+  const [contextCompletedSections, setContextCompletedSections] = useState<
+    boolean[]
+  >(() => {
+    const storedSections =
+      typeof window !== 'undefined'
+        ? localStorage.getItem('completedSections')
+        : null
+    return storedSections ? JSON.parse(storedSections) : Array(5).fill(false) // Default for 5 sections
   })
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       localStorage.setItem('completedQuizzes', JSON.stringify(completedQuizzes))
+      localStorage.setItem('currentSection', JSON.stringify(currentSection))
+      localStorage.setItem(
+        'completedSections',
+        JSON.stringify(contextCompletedSections),
+      )
     }
-  }, [completedQuizzes])
+  }, [completedQuizzes, currentSection, contextCompletedSections])
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -61,6 +84,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
         setCompletedQuizzes,
         completedQuests,
         setCompletedQuests,
+        currentSection,
+        setCurrentSection,
+        contextCompletedSections,
+        setContextCompletedSections,
       }}
     >
       {children}
