@@ -97,11 +97,11 @@ const IntroductionToDeFi: React.FC = () => {
     if (storedSections) {
       setContextCompletedSections(JSON.parse(storedSections))
     }
-    setLoading(false)
+    setLoading(false) // Set loading to false after component mounts
   }, [setContextCompletedSections])
 
   if (loading) {
-    return <div>Loading...</div>
+    return <div>Loading...</div> // Show a loading state while waiting for client-side rendering
   }
 
   return (
