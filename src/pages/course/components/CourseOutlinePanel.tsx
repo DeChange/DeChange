@@ -1,38 +1,28 @@
 import React from 'react'
 import Image from 'next/image'
 
-import book from '../../../assets/icons/stud-book.svg'
-import monitor from '../../../assets/icons/monitor.svg'
-import play from '../../../assets/icons/play.svg'
-import question from '../../../assets/icons/question-mark.svg'
 import check from '../../../assets/icons/check.svg'
 import padlock from '../../../assets/icons/padlock.svg'
 
+interface Section {
+  title: string
+  icon: string
+  completed: boolean
+}
+
 const CourseOutlinePanel: React.FC<{
-  completedSections: boolean[]
+  sections: Section[]
   currentSection: number
   isClaimRewardEnabled: boolean
   onClaimReward: () => void
   rewardsClaimed: boolean
 }> = ({
-  completedSections = [],
+  sections,
   currentSection,
   isClaimRewardEnabled,
   onClaimReward,
   rewardsClaimed,
 }) => {
-  const sections = [
-    { title: 'What is DeFi?', icon: book, completed: completedSections[0] },
-    {
-      title: 'History of DeFi',
-      icon: monitor,
-      completed: completedSections[1],
-    },
-    { title: 'DeFi Use Case', icon: book, completed: completedSections[2] },
-    { title: 'Practice', icon: play, completed: completedSections[3] },
-    { title: 'Quiz', icon: question, completed: completedSections[4] },
-  ]
-
   return (
     <div className="flex flex-col mt-6 justify-start items-start w-[252px] h-[372px] relative overflow-hidden rounded-3xl bg-white/[0.02] backdrop-blur-xl">
       <div className="flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden gap-2 px-4 py-2.5 border-t-0 border-r-0 border-b border-l-0 border-[#171a20]">
@@ -52,6 +42,8 @@ const CourseOutlinePanel: React.FC<{
               src={section.icon}
               alt="User"
               className="flex-grow-0 flex-shrink-0"
+              width={18} // Set appropriate width
+              height={18} // Set appropriate height
             />
             <p
               className={`flex-grow w-[152px] text-base text-left ${
@@ -65,12 +57,16 @@ const CourseOutlinePanel: React.FC<{
                 src={check}
                 alt="Completed"
                 className="flex-grow-0 flex-shrink-0"
+                width={16} // Set appropriate width
+                height={16} // Set appropriate height
               />
             ) : (
               <Image
                 src={padlock}
                 alt="Locked"
                 className="flex-grow-0 flex-shrink-0"
+                width={16} // Set appropriate width
+                height={16} // Set appropriate height
               />
             )}
           </div>

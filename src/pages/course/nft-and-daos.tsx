@@ -10,18 +10,19 @@ import demoUser2 from '../../assets/images/demo-user2.svg'
 import demoUser3 from '../../assets/images/demo-user3.svg'
 import demoUser4 from '../../assets/images/demo-user4.svg'
 import demoUser5 from '../../assets/images/demo-user5.svg'
-import defaultAvatar from '../../assets/images/default-avatar.svg'
-
-import HistoryOfDeFi from './sections/IntroductionToDefi/HistoryOfDefi'
-import WhatIsDeFi from './sections/IntroductionToDefi/WhatIsDefi'
-import DefiUsecase from './sections/IntroductionToDefi/DefiUsecase'
-import Practice from './sections/IntroductionToDefi/Practice'
-import Quiz from './sections/IntroductionToDefi/Quiz'
 
 import dechangeBadge from '../../assets/icons/dechange-badge.svg'
 import usdtBadge from '../../assets/icons/usdt-badge.svg'
 import roleBadge from '../../assets/icons/role-badge.svg'
 import certBadge from '../../assets/icons/cert-badge.svg'
+import defaultAvatar from '../../assets/images/default-avatar.svg'
+
+import WhatAreNFTs from './sections/NftAndDaos/WhatAreNFTs'
+import HowToCreateNFTs from './sections/NftAndDaos/HowToCreateNFTs'
+import UnderstandingDAOs from './sections/NftAndDaos/UnderstandingDAOs'
+import Practice from './sections/NftAndDaos/Practice'
+import Quiz from './sections/NftAndDaos/Quiz'
+
 import { useAppContext } from '../../context/AppContext'
 
 import book from '../../assets/icons/stud-book.svg'
@@ -29,9 +30,9 @@ import monitor from '../../assets/icons/monitor.svg'
 import play from '../../assets/icons/play.svg'
 import question from '../../assets/icons/question-mark.svg'
 
-const IntroductionToDeFi: React.FC = () => {
+const NFTsAndDAOs: React.FC = () => {
   const { courses, setCourseState } = useAppContext()
-  const courseState = courses['introduction-to-defi']
+  const courseState = courses['nft-and-daos']
 
   const [isClaimRewardEnabled, setIsClaimRewardEnabled] = useState(false)
   const [showPopup, setShowPopup] = useState(false)
@@ -42,17 +43,17 @@ const IntroductionToDeFi: React.FC = () => {
 
   const sections = [
     {
-      title: 'What is DeFi?',
+      title: 'What are NFTs?',
       icon: book,
       completed: courseState.contextCompletedSections[0],
     },
     {
-      title: 'History of DeFi',
+      title: 'How to Create NFTs',
       icon: monitor,
       completed: courseState.contextCompletedSections[1],
     },
     {
-      title: 'DeFi Use Cases',
+      title: 'Understanding DAOs',
       icon: book,
       completed: courseState.contextCompletedSections[2],
     },
@@ -77,7 +78,7 @@ const IntroductionToDeFi: React.FC = () => {
         : Array(5).fill(false) // Fallback to a default array if not valid
 
       currentSections[courseState.currentSection] = true // Mark current section as complete
-      setCourseState('introduction-to-defi', {
+      setCourseState('nft-and-daos', {
         currentSection: courseState.currentSection + 1,
         contextCompletedSections: currentSections,
       })
@@ -96,7 +97,7 @@ const IntroductionToDeFi: React.FC = () => {
         : Array(5).fill(false) // Fallback to a default array if not valid
 
       currentSections[courseState.currentSection] = true // Mark quiz section as complete
-      setCourseState('introduction-to-defi', {
+      setCourseState('nft-and-daos', {
         contextCompletedSections: currentSections,
       })
       setIsClaimRewardEnabled(true)
@@ -106,7 +107,7 @@ const IntroductionToDeFi: React.FC = () => {
 
   const handlePrevious = () => {
     if (courseState.currentSection > 0) {
-      setCourseState('introduction-to-defi', {
+      setCourseState('nft-and-daos', {
         currentSection: courseState.currentSection - 1,
       })
     }
@@ -128,7 +129,7 @@ const IntroductionToDeFi: React.FC = () => {
   useEffect(() => {
     const storedSections = localStorage.getItem('completedSections')
     if (storedSections) {
-      setCourseState('introduction-to-defi', {
+      setCourseState('nft-and-daos', {
         contextCompletedSections: JSON.parse(storedSections),
       })
     }
@@ -147,20 +148,20 @@ const IntroductionToDeFi: React.FC = () => {
           <div className="w-full h-[223px] mt-6 p-4 bg-white/5 rounded-3xl shadow-inner border border-[#7B51EA2E] backdrop-blur-lg flex">
             <Image
               src={preview}
-              alt="DeChange Logo"
+              alt="NFTs and DAOs Preview"
               width={308}
               height={191}
               className="rounded-[12px] h-full object-cover"
             />
             <div className="flex-grow h-full flex flex-col justify-between pl-4">
               <div className="text-white text-2xl font-medium font-['Figtree']">
-                Introduction to DeFi
+                NFTs and DAOs
               </div>
               <div className="h-14 text-[#a8a7a7] mb-2 text-xs font-normal font-['Figtree']">
-                DeFi, or Decentralized Finance, revolutionizes traditional
-                financial systems. This course will guide you through the
-                fundamental concepts of DeFi, its applications, and how to
-                navigate this innovative financial landscape.
+                NFTs, or Non-Fungible Tokens, are unique digital assets that
+                represent ownership of specific items or content. This course
+                will explore the principles of NFTs, their use cases, and how
+                they empower creators.
               </div>
               <div className="flex justify-start items-center gap-5">
                 <div className="flex items-center gap-3">
@@ -169,7 +170,7 @@ const IntroductionToDeFi: React.FC = () => {
                   </div>
                   <div className="px-2 py-0.5 bg-[#ded3f9] rounded flex items-center">
                     <div className="text-[#361689] text-xs font-normal font-['Figtree']">
-                      Beginner
+                      Advanced
                     </div>
                   </div>
                 </div>
@@ -179,7 +180,7 @@ const IntroductionToDeFi: React.FC = () => {
                   </div>
                   <div className="px-2 py-0.5 bg-[#ded3f9] rounded flex items-center">
                     <div className="text-[#361689] text-xs font-normal font-['Figtree']">
-                      DeFi
+                      Futures
                     </div>
                   </div>
                 </div>
@@ -236,18 +237,16 @@ const IntroductionToDeFi: React.FC = () => {
               </div>
             </div>
           </div>
-
           {/* Section Content */}
           <div className="mt-14 mb-28 w-full flex-col justify-start items-start gap-8 inline-flex">
-            {courseState.currentSection === 0 && <WhatIsDeFi />}
-            {courseState.currentSection === 1 && <HistoryOfDeFi />}
-            {courseState.currentSection === 2 && <DefiUsecase />}
+            {courseState.currentSection === 0 && <WhatAreNFTs />}
+            {courseState.currentSection === 1 && <HowToCreateNFTs />}
+            {courseState.currentSection === 2 && <UnderstandingDAOs />}
             {courseState.currentSection === 3 && <Practice />}
             {courseState.currentSection === 4 && (
               <Quiz onAnswersChecked={setAllAnswersCorrect} />
             )}
           </div>
-
           <div className="flex mt-14 justify-between items-start self-stretch flex-grow-0 flex-shrink-0 py-4">
             <div className="flex flex-col justify-center items-start flex-grow gap-2">
               <div
@@ -336,7 +335,6 @@ const IntroductionToDeFi: React.FC = () => {
             </div>
           </div>
         </div>
-
         {/* Participants and Rank Section */}
         <div className="flex-grow h-full flex flex-col justify-between pl-4 gap-8">
           <CourseOutlinePanel
@@ -424,4 +422,4 @@ const IntroductionToDeFi: React.FC = () => {
   )
 }
 
-export default IntroductionToDeFi
+export default NFTsAndDAOs
