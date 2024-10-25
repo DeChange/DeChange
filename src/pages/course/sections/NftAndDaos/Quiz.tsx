@@ -14,23 +14,36 @@ const Quiz: React.FC<QuizProps> = ({ onAnswersChecked }) => {
   const [activeAccordion, setActiveAccordion] = useState<number | null>(0)
   const [selectedAnswers, setSelectedAnswers] = useState<number[]>([])
   const { courses, setCourseState } = useAppContext()
-  const courseState = courses['introduction-to-defi']
+  const courseState = courses['nft-and-daos']
 
   const questions = [
     {
-      question: 'Which of the following describes DeFi?',
+      question: 'What does NFT stand for?',
       options: [
-        'A decentralized system for financial services.',
-        'A centralized bank for digital currency exchange.',
-        'A government-regulated platform for online payments.',
+        'Non-Fungible Token',
+        'Non-Financial Transaction',
+        'Networked Financial Technology',
       ],
     },
     {
-      question: 'What is the main advantage of DeFi?',
+      question:
+        'Which of the following is a popular platform for buying and selling NFTs?',
+      options: ['Coinbase', 'OpenSea', 'Binance'],
+    },
+    {
+      question: 'What is a DAO?',
       options: [
-        'Access to financial services without intermediaries.',
-        'Requires approval from central authorities.',
-        'Limited to use in one country.',
+        'Digital Asset Ownership',
+        'Distributed Application Operator',
+        'Decentralized Autonomous Organization',
+      ],
+    },
+    {
+      question: 'What is a primary benefit of using NFTs?',
+      options: [
+        'Guaranteed profit on resale',
+        'Proof of ownership and authenticity',
+        'Unlimited supply',
       ],
     },
   ]
@@ -39,7 +52,7 @@ const Quiz: React.FC<QuizProps> = ({ onAnswersChecked }) => {
     setActiveAccordion(activeAccordion === index ? null : index)
   }
 
-  const correctAnswers = [0, 0]
+  const correctAnswers = [0, 1, 2, 1]
 
   const handleAnswerSelect = (questionIndex: number, answerIndex: number) => {
     const newSelectedAnswers = [...selectedAnswers]
@@ -59,9 +72,7 @@ const Quiz: React.FC<QuizProps> = ({ onAnswersChecked }) => {
     if (allCorrect) {
       const updatedQuizzes = [...courseState.completedQuizzes]
       updatedQuizzes[questionIndex] = true
-      setCourseState('introduction-to-defi', {
-        completedQuizzes: updatedQuizzes,
-      }) // Update the context state
+      setCourseState('nft-and-daos', { completedQuizzes: updatedQuizzes })
     }
   }
 
