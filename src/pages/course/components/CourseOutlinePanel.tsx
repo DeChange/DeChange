@@ -17,12 +17,14 @@ const CourseOutlinePanel: React.FC<{
   onClaimReward: () => void
   rewardsClaimed: boolean
 }> = ({
-  sections,
+  sections = [],
   currentSection,
   isClaimRewardEnabled,
   onClaimReward,
   rewardsClaimed,
 }) => {
+  const safeSections = Array.isArray(sections) ? sections : []
+
   return (
     <div className="flex flex-col mt-6 justify-start items-start w-[252px] h-[372px] relative overflow-hidden rounded-3xl bg-white/[0.02] backdrop-blur-xl">
       <div className="flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden gap-2 px-4 py-2.5 border-t-0 border-r-0 border-b border-l-0 border-[#171a20]">
@@ -31,7 +33,7 @@ const CourseOutlinePanel: React.FC<{
         </p>
       </div>
       <div className="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 overflow-hidden gap-2 px-3.5 py-2 border-t-0 border-r-0 border-b border-l-0 border-[#171a20]">
-        {sections.map((section, index) => (
+        {safeSections.map((section, index) => (
           <div
             key={index}
             className={`flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 h-[39px] relative overflow-hidden gap-[11px] px-2 py-2.5 ${
