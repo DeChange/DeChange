@@ -14,7 +14,7 @@ const Quiz: React.FC<QuizProps> = ({ onAnswersChecked }) => {
   const [activeAccordion, setActiveAccordion] = useState<number | null>(0)
   const [selectedAnswers, setSelectedAnswers] = useState<number[]>([])
   const { courses, setCourseState } = useAppContext()
-  const courseState = courses['nft-and-daos'] // Access the specific course state
+  const courseState = courses['nft-and-daos']
 
   const questions = [
     {
@@ -52,7 +52,7 @@ const Quiz: React.FC<QuizProps> = ({ onAnswersChecked }) => {
     setActiveAccordion(activeAccordion === index ? null : index)
   }
 
-  const correctAnswers = [0, 1, 2, 1] // Update correct answers based on the new questions
+  const correctAnswers = [0, 1, 2, 1]
 
   const handleAnswerSelect = (questionIndex: number, answerIndex: number) => {
     const newSelectedAnswers = [...selectedAnswers]
@@ -70,9 +70,9 @@ const Quiz: React.FC<QuizProps> = ({ onAnswersChecked }) => {
     }
 
     if (allCorrect) {
-      const updatedQuizzes = [...courseState.completedQuizzes] // Access completedQuizzes from courseState
+      const updatedQuizzes = [...courseState.completedQuizzes]
       updatedQuizzes[questionIndex] = true
-      setCourseState('nft-and-daos', { completedQuizzes: updatedQuizzes }) // Update the context state
+      setCourseState('nft-and-daos', { completedQuizzes: updatedQuizzes })
     }
   }
 

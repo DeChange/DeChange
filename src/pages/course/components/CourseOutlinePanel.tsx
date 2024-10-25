@@ -42,8 +42,8 @@ const CourseOutlinePanel: React.FC<{
               src={section.icon}
               alt="User"
               className="flex-grow-0 flex-shrink-0"
-              width={18} // Set appropriate width
-              height={18} // Set appropriate height
+              width={18}
+              height={18}
             />
             <p
               className={`flex-grow w-[152px] text-base text-left ${
@@ -57,16 +57,16 @@ const CourseOutlinePanel: React.FC<{
                 src={check}
                 alt="Completed"
                 className="flex-grow-0 flex-shrink-0"
-                width={16} // Set appropriate width
-                height={16} // Set appropriate height
+                width={16}
+                height={16}
               />
             ) : (
               <Image
                 src={padlock}
                 alt="Locked"
                 className="flex-grow-0 flex-shrink-0"
-                width={16} // Set appropriate width
-                height={16} // Set appropriate height
+                width={16}
+                height={16}
               />
             )}
           </div>

@@ -75,16 +75,16 @@ const NFTsAndDAOs: React.FC = () => {
         courseState.contextCompletedSections,
       )
         ? [...courseState.contextCompletedSections]
-        : Array(5).fill(false) // Fallback to a default array if not valid
+        : Array(5).fill(false)
 
-      currentSections[courseState.currentSection] = true // Mark current section as complete
+      currentSections[courseState.currentSection] = true
       setCourseState('nft-and-daos', {
         currentSection: courseState.currentSection + 1,
         contextCompletedSections: currentSections,
       })
     } else {
       // Handle quiz submission logic
-      const areAllAnswersCorrect = true // Replace with actual answer checking logic
+      const areAllAnswersCorrect = true
       setAllAnswersCorrect(areAllAnswersCorrect)
       if (areAllAnswersCorrect) {
         setShowConfetti(true)
@@ -94,9 +94,9 @@ const NFTsAndDAOs: React.FC = () => {
         courseState.contextCompletedSections,
       )
         ? [...courseState.contextCompletedSections]
-        : Array(5).fill(false) // Fallback to a default array if not valid
+        : Array(5).fill(false)
 
-      currentSections[courseState.currentSection] = true // Mark quiz section as complete
+      currentSections[courseState.currentSection] = true
       setCourseState('nft-and-daos', {
         contextCompletedSections: currentSections,
       })

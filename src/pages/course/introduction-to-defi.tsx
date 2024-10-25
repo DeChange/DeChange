@@ -83,7 +83,7 @@ const IntroductionToDeFi: React.FC = () => {
       })
     } else {
       // Handle quiz submission logic
-      const areAllAnswersCorrect = true // Replace with actual answer checking logic
+      const areAllAnswersCorrect = true
       setAllAnswersCorrect(areAllAnswersCorrect)
       if (areAllAnswersCorrect) {
         setShowConfetti(true)
@@ -93,7 +93,7 @@ const IntroductionToDeFi: React.FC = () => {
         courseState.contextCompletedSections,
       )
         ? [...courseState.contextCompletedSections]
-        : Array(5).fill(false) // Fallback to a default array if not valid
+        : Array(5).fill(false)
 
       currentSections[courseState.currentSection] = true // Mark quiz section as complete
       setCourseState('introduction-to-defi', {

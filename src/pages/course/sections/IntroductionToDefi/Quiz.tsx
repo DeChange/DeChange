@@ -14,7 +14,7 @@ const Quiz: React.FC<QuizProps> = ({ onAnswersChecked }) => {
   const [activeAccordion, setActiveAccordion] = useState<number | null>(0)
   const [selectedAnswers, setSelectedAnswers] = useState<number[]>([])
   const { courses, setCourseState } = useAppContext()
-  const courseState = courses['introduction-to-defi'] // Access the specific course state
+  const courseState = courses['introduction-to-defi']
 
   const questions = [
     {
@@ -57,7 +57,7 @@ const Quiz: React.FC<QuizProps> = ({ onAnswersChecked }) => {
     }
 
     if (allCorrect) {
-      const updatedQuizzes = [...courseState.completedQuizzes] // Access completedQuizzes from courseState
+      const updatedQuizzes = [...courseState.completedQuizzes]
       updatedQuizzes[questionIndex] = true
       setCourseState('introduction-to-defi', {
         completedQuizzes: updatedQuizzes,

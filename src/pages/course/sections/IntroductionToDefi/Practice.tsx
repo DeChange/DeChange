@@ -7,8 +7,8 @@ import verify from '../../../../assets/icons/verification-badge.svg'
 
 const Practice: React.FC = () => {
   const { courses, setCompletedQuests } = useAppContext()
-  const courseState = courses['introduction-to-defi'] // Access the specific course state
-  const { completedQuests } = courseState // Access completedQuests from courseState
+  const courseState = courses['introduction-to-defi']
+  const { completedQuests } = courseState
 
   const handleQuestCompletion = (quest: keyof typeof completedQuests) => {
     let url = ''

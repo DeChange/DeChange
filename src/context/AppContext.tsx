@@ -13,7 +13,7 @@ interface AppContextProps {
   setCompletedQuests: (
     courseId: string,
     quests: Record<string, boolean>,
-  ) => void // Add this line
+  ) => void
 }
 
 const AppContext = createContext<AppContextProps | undefined>(undefined)
@@ -25,13 +25,12 @@ const initialCourseState = (courseId: string): CourseState => {
     completedQuizzes: [false, false],
     completedQuests: {},
     currentSection: 0,
-    contextCompletedSections: Array(5).fill(false), // Ensure this is an array
+    contextCompletedSections: Array(5).fill(false),
   }
 
   if (storedData) {
     try {
       const parsedData = JSON.parse(storedData)
-      // Ensure contextCompletedSections is an array
       if (Array.isArray(parsedData.contextCompletedSections)) {
         return { ...parsedData }
       }
@@ -40,7 +39,8 @@ const initialCourseState = (courseId: string): CourseState => {
     }
   }
 
-  return defaultState // Return default state if no valid data found
+  // Returns default state if no valid data found
+  return defaultState
 }
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -55,7 +55,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
     setCourses((prevCourses) => {
       const updatedCourse = { ...prevCourses[courseId], ...state }
       if (typeof window !== 'undefined') {
-        localStorage.setItem(courseId, JSON.stringify(updatedCourse)) // Save to local storage
+        localStorage.setItem(courseId, JSON.stringify(updatedCourse))
       }
       return { ...prevCourses, [courseId]: updatedCourse }
     })
