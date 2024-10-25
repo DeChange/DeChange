@@ -14,24 +14,32 @@ const courses = [
     level: 'Beginner',
     slug: 'introduction-to-defi',
     category: 'DeFi',
+    details:
+      'DeFi, revolutionizes traditional financial systems. This course will guide you through the fundamental concepts of DeFi, its applications, and how to navigate this innovative financial landscape.',
   },
   {
     title: 'NFT and DAOs',
     level: 'Advanced',
     slug: 'nft-and-daos',
     category: 'Futures',
+    details:
+      'NFTs, are unique digital assets that represent ownership of specific items or content. This course will explore the principles of NFTs, their use cases, and how they empower creators.',
   },
   {
     title: 'What is Web3',
     level: 'Beginner',
     slug: 'what-is-web3',
     category: 'DeFi',
+    details:
+      'Web3 represents the next generation of the internet, focusing on decentralization and user ownership. This course will introduce you to the core concepts of Web3 and its impact on the digital landscape.',
   },
   {
     title: 'ZK Proofs',
     level: 'Advanced',
     slug: 'zk-proofs',
     category: 'Smart Contract',
+    details:
+      'Zero-Knowledge Proofs (ZK Proofs) are cryptographic methods that allow one party to prove knowledge of a fact without revealing the fact itself. This course will delve into the principles and applications of ZK Proofs in blockchain technology.',
   },
 ]
 
@@ -41,24 +49,32 @@ const top = [
     level: 'Beginner',
     slug: 'what-is-web3',
     category: 'DeFi',
+    details:
+      'Web3 represents the next generation of the internet, focusing on decentralization and user ownership. This course will introduce you to the core concepts of Web3 and its impact on the digital landscape.',
   },
   {
     title: 'Introduction to DeFi',
     level: 'Beginner',
     slug: 'introduction-to-defi',
     category: 'DeFi',
+    details:
+      'DeFi, revolutionizes traditional financial systems. This course will guide you through the fundamental concepts of DeFi, its applications, and how to navigate this innovative financial landscape.',
   },
   {
     title: 'ZK Proofs',
     level: 'Advanced',
     slug: 'zk-proofs',
     category: 'Smart Contract',
+    details:
+      'Zero-Knowledge Proofs (ZK Proofs) are cryptographic methods that allow one party to prove knowledge of a fact without revealing the fact itself. This course will delve into the principles and applications of ZK Proofs in blockchain technology.',
   },
   {
     title: 'NFT and DAOs',
     level: 'Advanced',
     slug: 'nft-and-daos',
     category: 'Futures',
+    details:
+      'NFTs, are unique digital assets that represent ownership of specific items or content. This course will explore the principles of NFTs, their use cases, and how they empower creators.',
   },
 ]
 
@@ -89,6 +105,7 @@ const Home: React.FC = () => {
                   level={course.level}
                   slug={course.slug}
                   category={course.category}
+                  details={course.details}
                 />
               ))
             ) : (
@@ -117,6 +134,7 @@ const Home: React.FC = () => {
                     level={course.level}
                     slug={course.slug}
                     category={course.category}
+                    details={course.details}
                   />
                 ))}
               </div>

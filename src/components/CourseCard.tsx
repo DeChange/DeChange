@@ -12,6 +12,7 @@ interface CourseCardProps {
   level: string
   slug: string
   category: string
+  details: string
 }
 
 const CourseCard: React.FC<CourseCardProps> = ({
@@ -19,7 +20,12 @@ const CourseCard: React.FC<CourseCardProps> = ({
   level,
   slug,
   category,
+  details,
 }) => {
+  const truncateDetails = (text: string, maxLength: number) => {
+    return text.length > maxLength ? text.substring(0, maxLength) + '...' : text
+  }
+
   return (
     <Link href={`/course/${slug}`}>
       <div className="h-[301px] bg-white/5 rounded-3xl shadow-inner border border-[#7B51EA2E] backdrop-blur-lg p-3 flex flex-col gap-3 cursor-pointer">
@@ -38,7 +44,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
         </div>
         <div className="text-white text-2xl font-medium">{title}</div>
         <div className="text-[#d2d1d1] text-base font-normal">
-          Course Details
+          {truncateDetails(details, 17)}
         </div>
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-2">
