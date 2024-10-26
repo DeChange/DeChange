@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import logo from '../assets/images/logo.svg';
-import Image from 'next/image';
-import Link from 'next/link';
+import React, { useState } from 'react'
+import logo from '../assets/images/logo.svg'
+import Image from 'next/image'
+import Link from 'next/link'
 
-import book from '../assets/icons/book.svg';
-import users from '../assets/icons/users.svg';
-import photo from '../assets/icons/photos.svg';
-import coin from '../assets/icons/coin.svg';
-import user from '../assets/icons/user.svg';
+import book from '../assets/icons/book.svg'
+import users from '../assets/icons/users.svg'
+import photo from '../assets/icons/photos.svg'
+import coin from '../assets/icons/coin.svg'
+import user from '../assets/icons/user.svg'
 
 const sidebarItems = [
   { icon: book, label: 'Classroom', path: '/' },
@@ -15,17 +15,20 @@ const sidebarItems = [
   { icon: photo, label: 'Marketplace', path: '/marketplace' },
   { icon: coin, label: 'Reward', path: '/reward' },
   { icon: user, label: 'Profile', path: '/profile' },
-];
+]
 
 const Sidebar: React.FC = () => {
-  const [activeItem, setActiveItem] = useState(0);
+  const [activeItem, setActiveItem] = useState(0)
 
   return (
     <nav className="bg-gray-900 border border-[#7B51EA2E] text-white w-64 h-auto rounded-2xl shadow-inner backdrop-blur-3xl m-6">
-      <header className="flex items-center gap-3.5 p-4 border-b border-[#7b50ea]/25">
-        <Image src={logo} alt="DeChange Logo" width={44} height={44} />
-        <h1 className="text-primary-400 text-2xl font-bold">DeChange</h1>
-      </header>
+      <Link href="/">
+        {' '}
+        <header className="flex items-center gap-3.5 p-4 border-b border-[#7b50ea]/25">
+          <Image src={logo} alt="DeChange Logo" width={44} height={44} />
+          <h1 className="text-primary-400 text-2xl font-bold">DeChange</h1>
+        </header>
+      </Link>
 
       <ul className="space-y-2 p-4 border-t border-[#7b50ea]/25">
         {sidebarItems.map((item, index) => (
@@ -44,7 +47,9 @@ const Sidebar: React.FC = () => {
                 alt={item.label}
                 width={24}
                 height={24}
-                className={`mr-2 ${activeItem === index ? 'text-purple-400' : 'text-gray-600'}`}
+                className={`mr-2 ${
+                  activeItem === index ? 'text-purple-400' : 'text-gray-600'
+                }`}
               />
               <span className="font-medium text-lg">{item.label}</span>
             </Link>
@@ -52,7 +57,7 @@ const Sidebar: React.FC = () => {
         ))}
       </ul>
     </nav>
-  );
-};
+  )
+}
 
-export default Sidebar;
+export default Sidebar
