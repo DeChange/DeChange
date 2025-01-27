@@ -8,8 +8,14 @@ const CourseDetails: React.FC = () => {
 
   return (
     <Layout>
-        <div className="flex justify-center items-center h-screen text-2xl text-gray-700">
-        <h1>{Array.isArray(slug) ? slug[0].replace(/-/g, ' ') : slug ? slug.replace(/-/g, ' ') : 'Loading...'}</h1>
+      <div className='flex justify-center items-center h-screen text-2xl text-gray-700'>
+        <h1>
+          {Array.isArray(slug)
+            ? slug[0].replace(/-/g, ' ')
+            : slug
+            ? slug.replace(/-/g, ' ')
+            : 'Loading...'}
+        </h1>
       </div>
     </Layout>
   );

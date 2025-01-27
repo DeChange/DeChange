@@ -1,20 +1,20 @@
-import Image from 'next/image'
-import React, { Dispatch, SetStateAction, useState } from 'react'
-import { useAppContext } from '../../../../context/AppContext'
+import Image from 'next/image';
+import React, { Dispatch, SetStateAction, useState } from 'react';
+import { useAppContext } from '../../../../context/AppContext';
 
-import arrowDown from '../../../../assets/icons/arrow-down.svg'
-import arrowRight from '../../../../assets/icons/arrow-side.svg'
-import radioButton from '../../../../assets/icons/radio-button.svg'
+import arrowDown from '../../../../assets/icons/arrow-down.svg';
+import arrowRight from '../../../../assets/icons/arrow-side.svg';
+import radioButton from '../../../../assets/icons/radio-button.svg';
 
 interface QuizProps {
-  onAnswersChecked: Dispatch<SetStateAction<boolean>>
+  onAnswersChecked: Dispatch<SetStateAction<boolean>>;
 }
 
 const Quiz: React.FC<QuizProps> = ({ onAnswersChecked }) => {
-  const [activeAccordion, setActiveAccordion] = useState<number | null>(0)
-  const [selectedAnswers, setSelectedAnswers] = useState<number[]>([])
-  const { courses, setCourseState } = useAppContext()
-  const courseState = courses['introduction-to-defi']
+  const [activeAccordion, setActiveAccordion] = useState<number | null>(0);
+  const [selectedAnswers, setSelectedAnswers] = useState<number[]>([]);
+  const { courses, setCourseState } = useAppContext();
+  const courseState = courses['introduction-to-defi'];
 
   const questions = [
     {
@@ -33,76 +33,76 @@ const Quiz: React.FC<QuizProps> = ({ onAnswersChecked }) => {
         'Limited to use in one country.',
       ],
     },
-  ]
+  ];
 
   const toggleAccordion = (index: number) => {
-    setActiveAccordion(activeAccordion === index ? null : index)
-  }
+    setActiveAccordion(activeAccordion === index ? null : index);
+  };
 
-  const correctAnswers = [0, 0]
+  const correctAnswers = [0, 0];
 
   const handleAnswerSelect = (questionIndex: number, answerIndex: number) => {
-    const newSelectedAnswers = [...selectedAnswers]
-    newSelectedAnswers[questionIndex] = answerIndex
-    setSelectedAnswers(newSelectedAnswers)
+    const newSelectedAnswers = [...selectedAnswers];
+    newSelectedAnswers[questionIndex] = answerIndex;
+    setSelectedAnswers(newSelectedAnswers);
 
     const allCorrect = newSelectedAnswers.every(
-      (answer, index) => answer === correctAnswers[index],
-    )
+      (answer, index) => answer === correctAnswers[index]
+    );
 
     if (typeof onAnswersChecked === 'function') {
-      onAnswersChecked(allCorrect)
+      onAnswersChecked(allCorrect);
     } else {
-      console.error('onAnswersChecked is not a function')
+      console.error('onAnswersChecked is not a function');
     }
 
     if (allCorrect) {
-      const updatedQuizzes = [...courseState.completedQuizzes]
-      updatedQuizzes[questionIndex] = true
+      const updatedQuizzes = [...courseState.completedQuizzes];
+      updatedQuizzes[questionIndex] = true;
       setCourseState('introduction-to-defi', {
         completedQuizzes: updatedQuizzes,
-      }) // Update the context state
+      }); // Update the context state
     }
-  }
+  };
 
   return (
-    <div className="flex flex-col justify-start items-start w-full gap-8">
-      <div className="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 gap-[9px]">
-        <div className="flex justify-start items-end self-stretch flex-grow-0 flex-shrink-0 relative gap-5">
-          <p className="flex-grow-0 flex-shrink-0 text-4xl font-semibold text-left text-white">
+    <div className='flex flex-col justify-start items-start w-full gap-8'>
+      <div className='flex flex-col justify-start items-start  gap-[9px]'>
+        <div className='flex justify-start items-end  relative gap-5'>
+          <p className='flex-grow-0 flex-shrink-0 text-4xl font-semibold text-left text-white'>
             Quiz
           </p>
-          <div className="flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-2 py-[5px]">
-            <p className="flex-grow-0 flex-shrink-0 opacity-40 text-base text-left text-white">
+          <div className='flex justify-center items-center relative gap-2 py-[5px]'>
+            <p className=' opacity-40 text-base text-left text-white'>
               Ensure to answer questions CORRECTLY, answers cannot be changed
               once submitted.
             </p>
           </div>
         </div>
-        <div className="flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 relative gap-4">
-          <div className="flex-grow h-1.5 rounded-[5px] bg-[#7b51ea]" />
+        <div className='flex justify-start items-center  relative gap-4'>
+          <div className='flex-grow h-1.5 rounded-[5px] bg-[#7b51ea]' />
         </div>
       </div>
 
       {questions.map((item, index) => (
         <div
           key={index}
-          className="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 gap-4"
+          className='flex flex-col justify-start items-start  gap-4'
         >
           <div
-            className={`flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 overflow-hidden gap-4 p-2.5 rounded-[11px] ${
+            className={`flex flex-col justify-start items-start  overflow-hidden gap-4 p-2.5 rounded-[11px] ${
               activeAccordion === index ? 'bg-black/[0.16]' : ''
             }`}
           >
             <div
-              className="flex justify-between items-center self-stretch flex-grow-0 flex-shrink-0 h-11"
+              className='flex justify-between items-center  h-11'
               onClick={() => toggleAccordion(index)}
             >
-              <div className="flex justify-start items-center flex-grow relative gap-[7px]">
+              <div className='flex justify-start items-center flex-grow relative gap-[7px]'>
                 <Image
                   src={activeAccordion === index ? arrowDown : arrowRight}
-                  alt="Arrow"
-                  className="flex-grow-0 flex-shrink-0"
+                  alt='Arrow'
+                  className='flex-grow-0 flex-shrink-0'
                 />
                 <p
                   className={`flex-grow w-full text-xl font-semibold text-left text-white ${
@@ -114,11 +114,11 @@ const Quiz: React.FC<QuizProps> = ({ onAnswersChecked }) => {
               </div>
             </div>
             {activeAccordion === index && (
-              <div className="flex cursor-pointer flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 gap-4">
+              <div className='flex cursor-pointer flex-col justify-start items-start  gap-4'>
                 {item.options.map((option, optionIndex) => (
                   <div
                     key={optionIndex}
-                    className={`flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 h-10 relative gap-4 p-2 ${
+                    className={`flex justify-start items-center  h-10 relative gap-4 p-2 ${
                       selectedAnswers[index] === optionIndex
                         ? optionIndex === correctAnswers[index]
                           ? 'text-primary-400'
@@ -126,13 +126,13 @@ const Quiz: React.FC<QuizProps> = ({ onAnswersChecked }) => {
                         : ''
                     }`}
                     onClick={(e) => {
-                      e.stopPropagation()
-                      handleAnswerSelect(index, optionIndex)
+                      e.stopPropagation();
+                      handleAnswerSelect(index, optionIndex);
                     }}
                   >
                     <Image
                       src={radioButton}
-                      alt="Radio Button"
+                      alt='Radio Button'
                       className={`flex-grow-0 flex-shrink-0 ${
                         selectedAnswers[index] === optionIndex
                           ? optionIndex === correctAnswers[index]
@@ -160,7 +160,7 @@ const Quiz: React.FC<QuizProps> = ({ onAnswersChecked }) => {
         </div>
       ))}
     </div>
-  )
-}
+  );
+};
 
-export default Quiz
+export default Quiz;
